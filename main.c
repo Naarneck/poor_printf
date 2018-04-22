@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-//#include "ft_printf.h"
+#include "ft_printf.h"
 
 int main(int argc, char const *argv[])
 {
 	printf("kek %d\n", 100);
+	printf("kek %z\n", 100);
+	printf("_____printf_end______\n");
+	ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C");
 	return 0;
 }

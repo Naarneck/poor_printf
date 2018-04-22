@@ -10,9 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-##ifndef FT_PRINTF
+#ifndef FT_PRINTF
 #define FT_PRINTF ft_printf
 #include <stdarg.h>
 #include <unistd.h>
+
+//  sSpdDioOuUxXcC
+
+#define	
+
+typedef struct	s_data
+{
+	int			chars; //return num
+	va_list 	args; //args
+	char 		*format; //format line
+	int			pos;
+}				t_data;
 
 #endif
