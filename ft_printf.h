@@ -15,16 +15,43 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-//  sSpdDioOuUxXcC
+#define	H 0
+#define	HH 1
+#define	L 2
+#define	LL 3
+#define	J 4
+#define	Z 5
 
-#define	
+#define	HASH 0
+#define	MINUS 1
+#define	PLUS 2
+#define	ZERO 3
+#define	SPACE 4
+
+//  sSpdDioOuUxXcC	
+//	hh, h, l, ll, j, et z.
+
+//  printf("%-+5,10d", 10);
+// % ... # '-+# 0' 6 .10 s
+// %[flags] [width] [.precision] [{h | l | ll | w | I | I32 | I64}] type
+typedef struct	s_flags
+{
+	int 		percent;
+	int			flags[5];
+	int			width;
+	int			precision;
+	int			len_spec[6];
+	int			type;
+}				t_flags;
 
 typedef struct	s_data
 {
-	int			chars; //return num
+	int			printed; //return num
 	va_list 	args; //args
 	char 		*format; //format line
-	int			pos;
+	int			pos; //curr pos in format
+	t_flags		flags;
 }				t_data;
+
 
 #endif

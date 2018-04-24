@@ -15,9 +15,21 @@
 
 int main(int argc, char const *argv[])
 {
-	printf("kek %d\n", 100);
-	printf("kek %z\n", 100);
+	int ret;
+	int ret_my;
+
+	printf("%.s\n", "string");
+	printf("%.3s\n", "string");
+	printf("%.5s\n", "string");
+	printf("%.10s\n", "string");
+	printf("%-6d\n", -10000);
+	printf("%+# 0-6d\n", 10);
 	printf("_____printf_end______\n");
-	ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C");
+	// ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C", "123");
+	ret_my = ft_printf("sdasdldsa\n");
+	ret = printf("sdasdldsa\n");
+	printf("ret_my= %d ret= %d\n",ret_my, ret );
 	return 0;
 }
+
+
