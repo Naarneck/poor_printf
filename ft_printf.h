@@ -14,7 +14,7 @@
 #define FT_PRINTF ft_printf
 #include <stdarg.h>
 #include <unistd.h>
-
+#include <stdio.h> //del
 #define	H 0
 #define	HH 1
 #define	L 2
@@ -28,6 +28,7 @@
 #define	ZERO 3
 #define	SPACE 4
 
+#define	END 0
 //  sSpdDioOuUxXcC	
 //	hh, h, l, ll, j, et z.
 

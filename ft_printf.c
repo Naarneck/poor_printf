@@ -12,17 +12,19 @@
 
 #include "ft_printf.h"
 
-int 	check_width(t_data *d)
+void 	print_char(int c, t_data *d)
 {
-	write(1, &d->format[d->pos],1);
+	write(1, &c, 1);
+	d->printed++;
 }
 
-//segfault if no args
-
-void	print_string(t_data *d, char *str)
+void	print_string(char *str, t_data *d)
 {
-	printf("::print_string invoke\n");
-	printf("%s\n", str); //putsr here
+	int i;
+
+	i = 0;
+	while (str[i++] != '\0')
+		print_char(str[i], d);
 }
 
 int		handle_precision(t_data *d)
@@ -54,37 +56,19 @@ int		handle_flags(t_data *d)
 	return (1);
 }
 
-
-int		handle_type(t_data *d)
+//remember flags here 
+char		identify_type(t_data *d)
 {
-	if (d->format[d->pos] == 's'){
-		print_string(d, va_arg(d->args, char *));
+	int i;
+
+	i = d->pos;
+	while (d->format[i] != '\0' && i != END)
+	{
+		(d->format[d->pos] == 's' || d->format[d->pos] == 'S') ? print_string(va_arg(d->args, char *), d) : NULL;
+		(d->format[d->pos] == 'c' || d->format[d->pos] == 'C') ? print_char(va_arg(d->args, int), d) : NULL;
+		i++;
 	}
-	if (d->format[d->pos] == 'S')
-		printf("handle S here\n");
-	if (d->format[d->pos] == 'p')
-		printf("handle p here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle d here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle D here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle o here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle O here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle u here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle U here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle x here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle X here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle c here\n");
-	if (d->format[d->pos] == 's')
-		printf("handle C here\n");
-	return (1);
+	return (0);
 }
 
 
@@ -92,21 +76,24 @@ void	parse_format(t_data *d)
 {
 	while (d->format[d->pos] != '\0')
 	{	
+
 		if (d->format[d->pos] == '%')
 		{
-			++d->pos;
-			handle_type(d);
+			d->pos++;
+			identify_type(d);
 		}
 		else
 		{
-			write(1, &d->format[d->pos],1);
-			d->printed++;	
+			print_char(d->format[d->pos], d);
 		}
 		d->pos++;
 	}
 }
 
-int		ft_printf(const char *format, ...)
+
+//segfault if no args
+
+int		ft_printf(char *format, ...)
 {
 	t_data	d;
 
@@ -114,7 +101,7 @@ int		ft_printf(const char *format, ...)
 	d.pos = 0;
 	d.printed = 0;
 
-	va_start(d.args, d.format);
+	va_start(d.args, format);
 	parse_format(&d);
 	va_end(d.args);
 	return (d.printed);
