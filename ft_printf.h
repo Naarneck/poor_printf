@@ -41,7 +41,7 @@ typedef struct	s_flags
 	int			flags[5];
 	int			width;
 	int			precision;
-	int			len_spec[6];
+	int			cast;
 	int			type;
 }				t_flags;
 
@@ -51,7 +51,7 @@ typedef struct	s_data
 	va_list 	args; //args
 	char 		*format; //format line
 	int			pos; //curr pos in format
-	t_flags		flags;
+	t_flags		info;
 }				t_data;
 
 
