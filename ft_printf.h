@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF
-#define FT_PRINTF ft_printf
+#define FT_PRINTF
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h> //del
+#include <stdlib.h>
+
 #define	H 0
 #define	HH 1
 #define	L 2
@@ -42,7 +44,7 @@ typedef struct	s_flags
 	int			width;
 	int			precision;
 	int			cast;
-	int			type;
+	char		type;
 }				t_flags;
 
 typedef struct	s_data
@@ -54,5 +56,11 @@ typedef struct	s_data
 	t_flags		info;
 }				t_data;
 
+int		ft_isdigit(char c);
+int		ft_atoi(const char *str);
+int		digit_count(int value, int base);
+char	*ft_itoa_base(int value, int base);
+void	print_char(int c, t_data *d);
+void	print_string(char *str, t_data *d);
 
 #endif

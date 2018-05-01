@@ -12,95 +12,33 @@
 
 #include "ft_printf.h"
 
-
-
-#include "stdlib.h"
-
-int digit_count(int value, int base)
+int		indentify_width(t_data *d)
 {
-	int i;
-	long long  n;
-
-	n = value;
-	i = 1;
-	if (base == 10 && value < 0)
+	while (isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 	{
-		n = n * (-1);
-		i = 2;
-	}
-	if (base != 10 && value < 0)
-	{
-		n = n * (-1);
-	}
-	while (n >= base)
-	{
-		n = n / base;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_itoa_base(int value, int base)
-{
-	long long n;
-	char *str;
-	int count;
-   
-	count = digit_count(value, base);
-	n = value;
-	str = (char *)malloc(sizeof(char) * count + 1);
-	str[count] = '\0';
-	if (base == 10 && value < 0)
-	{;
-		n = n * (-1);
-		str[0] = '-';
-	}
-	if (base != 10 && value < 0)
-	{
-		n = n * (-1);
-	}
-	count--;
-	while (n >= base)
-	{
-		if (n % base < 10)
-			str[count] = n % base + '0';
-		if (n % base >= 10)
-			str[count] = n % base + 'A' - 10;
-		n = n / base;
-		count--;
-	}
-	if (n  < 10)
-		str[count] = n + '0';
-	else
-		str[count] = n + 'A' - 10;
-	return(str);
-}
-
-void 	print_char(int c, t_data *d)
-{
-	write(1, &c, 1);
-	d->printed++;
-}
-
-void	print_string(char *str, t_data *d)
-{
-	int i;
-
-	i = -1;
-	while (str[++i] != '\0')
-		print_char(str[i], d);
-}
-
-int		handle_precision(t_data *d)
-{
-	//if number
-	if (d->format[d->pos] == '*')
-	{
+		d->info.width *= 10;
+		d->info.width += d->format[d->pos] - 48;
+		d->pos++;
 	}
 	return (1);
 }
 
-int		handle_flags(t_data *d)
+int		indentify_precision(t_data *d)
+{
+	d->pos++;
+	if (!isdigit(d->format[d->pos]))
+		d->info.precision = 6; //?
+	else
+		while (isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
+		{
+			d->info.precision *= 10;
+			d->info.precision += d->format[d->pos] - 48;
+			d->pos++;
+		}
+	return (1);
+}
+
+int		indentify_flags(t_data *d)
 {
 	if (d->format[d->pos] == '+')
 	{
@@ -125,48 +63,95 @@ int		handle_flags(t_data *d)
 	return (1);
 }
 
-void cast_string(int cast, t_data *d)
-{
-	//??????????????
-}
 //remember flags here
-char		identify_type(t_data *d)
+
+void	indentify_cast(t_data *d)
 {
-	while (d->format[d->pos] != '\0')
+	if (d->format[d->pos] == 'l')
+		d->info.cast = L;
+	else if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
+		d->info.cast = LL;
+	else if (d->format[d->pos] == 'h')
+		d->info.cast = H;
+	else if (d->format[d->pos] == 'h' && d->format[d->pos + 1] == 'h')
+		d->info.cast = HH;
+	else if (d->format[d->pos] == 'j')
+		d->info.cast = J;
+	else if (d->format[d->pos] == 'z')
+		d->info.cast = Z;
+}
+
+int	indentify_type(t_data *d)
+{
+	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
 	{
-		/*Check for flags*/
-		handle_flags(d);
-		/*Check for width*/
-		/*Check for precision*/
-		/*Check for hh, h, l, ll, j, et z. first*/
-		if (d->format[d->pos] == 'l')
-			d->info.cast = L;
-		else if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
-			d->info.cast = LL;
-		else if (d->format[d->pos] == 'h')
-			d->info.cast = H;
-		else if (d->format[d->pos] == 'h' && d->format[d->pos + 1] == 'h')
-			d->info.cast = HH;
-		else if (d->format[d->pos] == 'j')
-			d->info.cast = J;
-		else if (d->format[d->pos] == 'z')
-			d->info.cast = Z;
-		/*Then check type!*/
-		if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
-		{
-			print_string(va_arg(d->args, char *), d);
-			return (0);
-		}
-		else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
-		{
-			print_char(va_arg(d->args, int), d);
-			return (0);
-		}
-		d->pos++;
+		// printf("string to do\n");
+		d->info.type = d->format[d->pos];
+		print_string(va_arg(d->args, char *), d);
+		return (1);
+	}
+	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
+	{
+		// printf("char to do\n");
+		d->info.type = d->format[d->pos];
+		print_char(va_arg(d->args, int), d);
+		return (1);
+	}
+	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' || d->format[d->pos] == 'i')
+	{
+		d->info.type = d->format[d->pos];
+		printf("D d i to do\n");
+		return (1);
+	}
+	else if (d->format[d->pos] == 'p')
+	{
+		d->info.type = d->format[d->pos];
+		printf("pointer to do\n");
+		return (1);
+	}
+	else if (d->format[d->pos] == 'o' || d->format[d->pos] == 'O')
+	{
+		d->info.type = d->format[d->pos];
+		printf("o O to do\n");
+		return (1);
+	}
+	else if (d->format[d->pos] == 'x' || d->format[d->pos] == 'X')
+	{
+		d->info.type = d->format[d->pos];
+		printf("x X to do\n");
+		return (1);
+	}
+	else if (d->format[d->pos] == 'u' || d->format[d->pos] == 'U')
+	{
+		d->info.type = d->format[d->pos];
+		printf("u U to do\n");
+		return (1);
 	}
 	return (0);
 }
 
+
+char		identify_format(t_data *d)
+{
+	while (d->format[d->pos] != '\0')
+	{
+		/*Check for flags*/
+		indentify_flags(d);
+		/*Check for width*/
+		if (ft_isdigit(d->format[d->pos]))
+			indentify_width(d);
+		/*Check for precision*/
+		if (d->format[d->pos] == '.')
+			indentify_precision(d);
+		/*Check for hh, h, l, ll, j, et z. first*/
+		indentify_cast(d);
+		/*Then check type!*/
+		if (indentify_type(d))
+			return (1); //to think about it
+		d->pos++;
+	}
+	return (0);
+}
 
 void	parse_format(t_data *d)
 {
@@ -175,7 +160,15 @@ void	parse_format(t_data *d)
 		// printf("pos: %d char %c\n", d->pos, d->format[d->pos]);
 		if (d->format[d->pos] == '%')
 		{
-			identify_type(d);
+			identify_format(d);
+			//print arg
+			printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",
+				 d->info.type
+				,d->info.width
+				,d->info.precision
+				,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4]
+				,d->info.cast);
+			refresh_flags(d);
 		}
 		else
 		{
@@ -187,6 +180,17 @@ void	parse_format(t_data *d)
 
 //segfault if no args, and it's ok
 
+int refresh_flags(t_data *d)
+{
+	d->info.percent = 5;
+	d->info.width = 0;
+	d->info.cast = 0;
+	d->info.type = 0;
+	d->info.precision = 0;
+	while (d->info.percent--)
+		d->info.flags[d->info.percent] = 0;
+}
+
 int		ft_printf(char *format, ...)
 {
 	t_data	d;
@@ -194,7 +198,7 @@ int		ft_printf(char *format, ...)
 	d.format = format;
 	d.pos = 0;
 	d.printed = 0;
-	d.info.cast = 0;
+	refresh_flags(&d);
 	va_start(d.args, format);
 	parse_format(&d);
 	va_end(d.args);
