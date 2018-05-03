@@ -12,6 +12,18 @@
 
 #include "ft_printf.h"
 
+void refresh_flags(t_data *d)
+{
+	d->info.percent = 5;
+	d->info.width = 0;
+	d->info.cast = 0;
+	d->info.type = 0;
+	d->info.precision = 0;
+	while (--d->info.percent)
+		d->info.flags[d->info.percent] = 0;
+	d->info.flags[d->info.percent] = 0;
+}
+
 int		indentify_width(t_data *d)
 {
 	while (isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
@@ -26,10 +38,10 @@ int		indentify_width(t_data *d)
 int		indentify_precision(t_data *d)
 {
 	d->pos++;
-	if (!isdigit(d->format[d->pos]))
+	if (!ft_isdigit(d->format[d->pos]))
 		d->info.precision = 6; //?
 	else
-		while (isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
+		while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 		{
 			d->info.precision *= 10;
 			d->info.precision += d->format[d->pos] - 48;
@@ -40,20 +52,22 @@ int		indentify_precision(t_data *d)
 
 int		indentify_flags(t_data *d)
 {
-	if (d->format[d->pos] == '+')
+	if (d->format[d->pos] == '+' && !d->info.flags[SPACE])
 	{
 		d->info.flags[PLUS] = 1;
 	}
-	else if (d->format[d->pos] == ' ')
+	if (d->format[d->pos] == ' ')
 	{
+		d->info.flags[PLUS] = 1;
 		d->info.flags[SPACE] = 1;
 	}
-	if (d->format[d->pos] == '-')
+	if (d->format[d->pos] == '-' && !d->info.flags[ZERO])
 	{
 		d->info.flags[MINUS] = 1;
 	}
-	else if (d->format[d->pos] == '0')
+	if (d->format[d->pos] == '0')
 	{
+		d->info.flags[MINUS] = 0;
 		d->info.flags[ZERO] = 1;
 	}
 	if (d->format[d->pos] == '#')
@@ -100,7 +114,8 @@ int	indentify_type(t_data *d)
 	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' || d->format[d->pos] == 'i')
 	{
 		d->info.type = d->format[d->pos];
-		printf("D d i to do\n");
+		// printf("D d i to do\n");
+		handle_int(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'p')
@@ -162,12 +177,12 @@ void	parse_format(t_data *d)
 		{
 			identify_format(d);
 			//print arg
-			printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",
-				 d->info.type
-				,d->info.width
-				,d->info.precision
-				,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4]
-				,d->info.cast);
+			// printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",
+			// 	 d->info.type
+			// 	,d->info.width
+			// 	,d->info.precision
+			// 	,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4]
+			// 	,d->info.cast);
 			refresh_flags(d);
 		}
 		else
@@ -179,17 +194,6 @@ void	parse_format(t_data *d)
 }
 
 //segfault if no args, and it's ok
-
-int refresh_flags(t_data *d)
-{
-	d->info.percent = 5;
-	d->info.width = 0;
-	d->info.cast = 0;
-	d->info.type = 0;
-	d->info.precision = 0;
-	while (d->info.percent--)
-		d->info.flags[d->info.percent] = 0;
-}
 
 int		ft_printf(char *format, ...)
 {

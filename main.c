@@ -23,17 +23,28 @@ int main(int argc, char const *argv[])
 	// printf("%.5s\n", "string");
 	// printf("%.10s\n", "string");
 	
-	printf("%s\n", "string");
-	printf("%-3s\n", "string");
-	printf("%5s\n", "string");
-	printf("%10s\n", "string");
+	// printf("%s\n", "string");
+	// printf("%-3s\n", "string");
+	// printf("%5s\n", "string");
+	// printf("%10s\n", "string");
 	
-	// printf("%-d\n", 12);
-	// printf("%+d\n", 12);
-	// printf("%#d\n", 12);
-	// printf("%0d\n", 12);
-	// printf("% d\n", 12);
+	// printf("%-5d\n", 12);
+	// printf("%+5d\n", 12);
+	// printf("%#5d\n", 12);
+	// printf("%05d\n", 12);
+	// printf("% 5d\n", 12);
 
+	// printf("%-5d\n", -12);
+	// printf("%+5d\n", -12);
+	// printf("%#5d\n", -12);
+	// printf("%05d\n", -12);
+	// printf("% 5d\n", -12);
+
+	// printf("% +5d\n", -12);
+	// printf("% -5d\n", -12);
+	// printf("% #5d\n", -12);
+	// printf("% 05d\n", -12);
+	// printf("%  5d\n", -12);
 
 	// printf("i: %i\n", -999);
 	// printf("li: %li\n", -999);
@@ -47,10 +58,12 @@ int main(int argc, char const *argv[])
 	// ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C", "123");
 	// ret_my = ft_printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");
 	// ret =	    printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");
-	// printf("ret_my= %d ret= %d\n",ret_my, ret );
 
-	ret_my = ft_printf("orroo: %-5.3hhs + % 5.3hhs\n","such","test");
-	ret =	    printf("orroo: %-5.3hhs + % 5.3hhs\n","such","test");
+	ret_my = ft_printf("mhm: %d%D%i\n",-1,990, 1010);
+	ret =	    printf("mhm: %d%D%i\n",-1,990, 1010);
+
+	// ret_my = ft_printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
+	// ret =	    printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
 	printf("ret_my= %d ret= %d\n",ret_my, ret );
 
 	return 0;

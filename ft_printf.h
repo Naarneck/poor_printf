@@ -54,6 +54,7 @@ typedef struct	s_data
 	char 		*format; //format line
 	int			pos; //curr pos in format
 	t_flags		info;
+	char 		*arg_string;
 }				t_data;
 
 int		ft_isdigit(char c);
@@ -62,5 +63,7 @@ int		digit_count(int value, int base);
 char	*ft_itoa_base(int value, int base);
 void	print_char(int c, t_data *d);
 void	print_string(char *str, t_data *d);
+
+void	handle_int(t_data *d);
 
 #endif
