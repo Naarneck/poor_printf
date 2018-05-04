@@ -19,6 +19,61 @@ int		ft_isdigit(char c)
 	return (0);
 }
 
+size_t	ft_strlen(const char *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+// char	*ft_strdup(const char *s1)
+// {
+// 	char *str;
+
+// 	str = (char*)malloc(sizeof(char) * ft_strlen(s1) + 1);
+// 	if (!str)
+// 		return (NULL);
+// 	str = ft_strcpy(str, s1);
+// 	return (str);
+// }
+
+char	*ft_strcat(char *s1, const char *s2)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+		i++;
+	while (s2[j] != '\0')
+	{
+		s1[i] = s2[j];
+		i++;
+		j++;
+	}
+	s1[i] = '\0';
+	return (s1);
+}
+
+// void	*ft_memset(void *b, int c, size_t len)
+// {
+// 	size_t			i;
+// 	char			*temp;
+
+// 	temp = (char *)b;
+// 	i = 0;
+// 	while (i < len)
+// 	{
+// 		temp[i] = c;
+// 		i++;
+// 	}
+// 	return (temp);
+// }
+
 int		ft_atoi(const char *str)
 {
 	int		i;

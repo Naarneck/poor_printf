@@ -57,6 +57,8 @@ typedef struct	s_data
 	char 		*arg_string;
 }				t_data;
 
+size_t	ft_strlen(const char *s);
+char	*ft_strcat(char *s1, const char *s2);
 int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
 int		digit_count(int value, int base);

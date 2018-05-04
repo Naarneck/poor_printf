@@ -40,11 +40,11 @@ int main(int argc, char const *argv[])
 	// printf("%05d\n", -12);
 	// printf("% 5d\n", -12);
 
-	// printf("% +5d\n", -12);
-	// printf("% -5d\n", -12);
-	// printf("% #5d\n", -12);
-	// printf("% 05d\n", -12);
-	// printf("%  5d\n", -12);
+	printf("%010d\n", -12);
+	printf("%010d\n", -12);
+	printf("%010d\n", -12);
+	printf("%-010d\n", -12);
+	printf("%-10d\n", -12);
 
 	// printf("i: %i\n", -999);
 	// printf("li: %li\n", -999);
@@ -59,8 +59,12 @@ int main(int argc, char const *argv[])
 	// ret_my = ft_printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");
 	// ret =	    printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");
 
-	ret_my = ft_printf("mhm: %d%D%i\n",-1,990, 1010);
-	ret =	    printf("mhm: %d%D%i\n",-1,990, 1010);
+	// ret_my = ft_printf("mhm: %d%D%i\n",-1,990, 1010);
+	// ret =	    printf("mhm: %d%D%i\n",-1,990, 1010);
+	ret_my = ft_printf("mhm: %10d\n",-12312);
+	ret =	    printf("mhm: %10d\n",-12312);
+	ret_my = ft_printf("mhm: %016d\n",-12312);
+	ret =	    printf("mhm: %016d\n",-12312);
 
 	// ret_my = ft_printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
 	// ret =	    printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
