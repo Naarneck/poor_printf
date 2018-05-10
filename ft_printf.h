@@ -17,12 +17,13 @@
 #include <stdio.h> //del
 #include <stdlib.h>
 
-#define	H 0
+#define	NONE 0
 #define	HH 1
 #define	L 2
 #define	LL 3
 #define	J 4
 #define	Z 5
+#define	H 6
 
 #define	HASH 0
 #define	MINUS 1
@@ -65,7 +66,9 @@ int		digit_count(int value, int base);
 char	*ft_itoa_base(int value, int base);
 void	print_char(int c, t_data *d);
 void	print_string(char *str, t_data *d);
+int		ft_printf(char *format, ...);
 
 void	handle_int(t_data *d);
 
+void	handle_width(t_data *d);
 #endif

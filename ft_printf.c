@@ -26,7 +26,7 @@ void refresh_flags(t_data *d)
 
 int		indentify_width(t_data *d)
 {
-	while (isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
+	while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 	{
 		d->info.width *= 10;
 		d->info.width += d->format[d->pos] - 48;
