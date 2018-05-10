@@ -102,10 +102,10 @@ int		ft_atoi(const char *str)
 }
 
 
-int		digit_count(int value, int base)
+int		digit_count(intmax_t value, int base)
 {
 	int i;
-	long long  n;
+	intmax_t  n;
 
 	n = value;
 	i = 1;
@@ -126,9 +126,9 @@ int		digit_count(int value, int base)
 	return (i);
 }
 
-char	*ft_itoa_base(int value, int base)
+char	*ft_itoa_base(intmax_t value, int base)
 {
-	long long n;
+	intmax_t n;
 	char *str;
 	int count;
    

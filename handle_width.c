@@ -18,7 +18,7 @@ void	handle_width(t_data *d)
 	int		sym;
 	int		i;
 
-	if (d->info.width > ft_strlen(d->arg_string) && !d->info.flags[MINUS])
+	if ((size_t)d->info.width > ft_strlen(d->arg_string) && !d->info.flags[MINUS])
 	{
 		sym = d->info.width - ft_strlen(d->arg_string);
 		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + sym);
