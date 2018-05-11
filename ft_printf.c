@@ -99,14 +99,12 @@ int	indentify_type(t_data *d)
 {
 	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
 	{
-		// printf("string to do\n");
 		d->info.type = d->format[d->pos];
 		print_string(va_arg(d->args, char *), d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
 	{
-		// printf("char to do\n");
 		d->info.type = d->format[d->pos];
 		print_char(va_arg(d->args, int), d);
 		return (1);
@@ -114,7 +112,6 @@ int	indentify_type(t_data *d)
 	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' || d->format[d->pos] == 'i')
 	{
 		d->info.type = d->format[d->pos];
-		// printf("D d i to do\n");
 		handle_int(d);
 		return (1);
 	}
@@ -127,19 +124,19 @@ int	indentify_type(t_data *d)
 	else if (d->format[d->pos] == 'o' || d->format[d->pos] == 'O')
 	{
 		d->info.type = d->format[d->pos];
-		printf("o O to do\n");
+		handle_xou(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'x' || d->format[d->pos] == 'X')
 	{
 		d->info.type = d->format[d->pos];
-		printf("x X to do\n");
+		handle_xou(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'u' || d->format[d->pos] == 'U')
 	{
 		d->info.type = d->format[d->pos];
-		printf("u U to do\n");
+		handle_xou(d);
 		return (1);
 	}
 	return (0);

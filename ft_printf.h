@@ -69,6 +69,7 @@ void	print_string(char *str, t_data *d);
 int		ft_printf(char *format, ...);
 
 void	handle_int(t_data *d);
+void	handle_xou(t_data *d);
 
 void	handle_width(t_data *d);
 #endif
