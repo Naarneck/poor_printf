@@ -18,33 +18,57 @@ int main(int argc, char const *argv[])
 	int ret;
 	int ret_my;
 
-	// printf("%.s\n", "string");
-	// printf("%.3s\n", "string");
-	// printf("%.5s\n", "string");
-	// printf("%.10s\n", "string");
+	   printf("%.s\n", "string");
+	ft_printf("%.s\n", "string");
+	   printf("%.3s\n", "string");
+	ft_printf("%.3s\n", "string");
+	   printf("%.5s\n", "string");
+	ft_printf("%.5s\n", "string");
+	   printf("%.10s\n", "string");
+	ft_printf("%.10s\n", "string");
 	
-	// printf("%s\n", "string");
-	// printf("%-3s\n", "string");
-	// printf("%5s\n", "string");
-	// printf("%10s\n", "string");
+	   printf("%s\n", "string");
+	ft_printf("%s\n", "string");
+	   printf("%-3s\n", "string");
+	ft_printf("%-3s\n", "string");
+	   printf("%5s\n", "string");
+	ft_printf("%5s\n", "string");
+	   printf("%10s\n", "string");
+	ft_printf("%10s\n", "string");
+
+	   printf("%-5d\n", 12);
+	ft_printf("%-5d\n", 12);
+	   printf("%+5d\n", 12);
+	ft_printf("%+5d\n", 12);
+	   printf("%#5d\n", 12);
+	ft_printf("%#5d\n", 12);
+	   printf("%05d\n", 12);
+	ft_printf("%05d\n", 12);
+	   printf("% 5d\n", 12);
+	ft_printf("% 5d\n", 12);
+
+	   printf("%-5d\n", -12);
+	ft_printf("%-5d\n", -12);
+	   printf("%+5d\n", -12);
+	ft_printf("%+5d\n", -12);
+	   printf("%#5d\n", -12);
+	ft_printf("%#5d\n", -12);
+	   printf("%05d\n", -12);
+	ft_printf("%05d\n", -12);
+	   printf("% 5d\n", -12);
+	ft_printf("% 5d\n", -12);
+
+	   printf("%010d e\n", -12);
+	ft_printf("%010d e\n", -12);
+	   printf("%010d d\n", -12);
+	ft_printf("%010d d\n", -12);
+	   printf("%010d c\n", -12);
+	ft_printf("%010d c\n", -12);
+	   printf("%-010d b\n", -12);
+	ft_printf("%-010d b\n", -12);
+	   printf("%-10d a\n", -12);
+	ft_printf("%-10d a\n", -12);
 	
-	// printf("%-5d\n", 12);
-	// printf("%+5d\n", 12);
-	// printf("%#5d\n", 12);
-	// printf("%05d\n", 12);
-	// printf("% 5d\n", 12);
-
-	// printf("%-5d\n", -12);
-	// printf("%+5d\n", -12);
-	// printf("%#5d\n", -12);
-	// printf("%05d\n", -12);
-	// printf("% 5d\n", -12);
-
-	// printf("%010d\n", -12);
-	// printf("%010d\n", -12);
-	// printf("%010d\n", -12);
-	// printf("%-010d\n", -12);
-	// printf("%-10d\n", -12);
 printf("i__________________________\n");
 	   printf("i: %i\n", 999);
 	ft_printf("i: %i\n", 999);
@@ -63,12 +87,12 @@ printf("u__________________________\n");
 	ft_printf("u: %u\n", 999);
 	   printf("lu: %lu\n", 999);
 	ft_printf("lu: %lu\n", 999);
-	   printf("llu: %lui\n", 999);
-	ft_printf("llu: %lui\n", 999);
+	   printf("llu: %lu\n", 999);
+	ft_printf("llu: %lu\n", 999);
 	   printf("zu: %zu\n", 999);
 	ft_printf("zu: %zu\n", 999);
-	   printf("hhu: %hui\n", 999);
-	ft_printf("hhu: %hui\n", 999);
+	   printf("hhu: %hu\n", 999);
+	ft_printf("hhu: %hu\n", 999);
 	   printf("hu: %hu\n", 999);
 	ft_printf("hu: %hu\n", 999);
 printf("o__________________________\n");
@@ -97,7 +121,6 @@ printf("x__________________________\n");
 	ft_printf("hhx: %hhx\n", 999);
 	   printf("hx: %hx\n", 999);
 	ft_printf("hx: %hx\n", 999);
-
 	//    printf("zli: %zli\n", -999);
 	// ft_printf("zli: %zli\n", -999);
 	printf("_____printf_end______\n");

@@ -56,6 +56,7 @@ typedef struct	s_data
 	int			pos; //curr pos in format
 	t_flags		info;
 	char 		*arg_string;
+	int 		sym;
 }				t_data;
 
 size_t	ft_strlen(const char *s);

@@ -137,7 +137,7 @@ char	*ft_itoa_base(intmax_t value, int base)
 	str = (char *)malloc(sizeof(char) * count + 1);
 	str[count] = '\0';
 	if (base == 10 && value < 0)
-	{;
+	{
 		n = n * (-1);
 		str[0] = '-';
 	}
@@ -151,14 +151,14 @@ char	*ft_itoa_base(intmax_t value, int base)
 		if (n % base < 10)
 			str[count] = n % base + '0';
 		if (n % base >= 10)
-			str[count] = n % base + 'A' - 10;
+			str[count] = n % base + 'a' - 10;
 		n = n / base;
 		count--;
 	}
 	if (n  < 10)
 		str[count] = n + '0';
 	else
-		str[count] = n + 'A' - 10;
+		str[count] = n + 'a' - 10;
 	return(str);
 }
 
