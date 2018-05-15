@@ -60,3 +60,24 @@ void	handle_xou(t_data *d) //u o O x X
 	print_string(d->arg_string, d);
 }
 
+void	handle_precision(t_data *d)
+{
+	if (d->info.flags[PREC])
+		d->arg_string[d->info.precision] = '\0';
+}
+
+void	handle_string(t_data *d)
+{
+	d->arg_string = ft_strdup(va_arg(d->args, char *));
+	handle_precision(d);
+	handle_width(d);
+	print_string(d->arg_string, d);
+}
+
+void	handle_percent(t_data *d)
+{
+	d->arg_string = ft_strdup("%");
+	handle_width(d);
+	// handle_precision(d);
+	print_string(d->arg_string, d);
+}

@@ -18,24 +18,6 @@ int main(int argc, char const *argv[])
 	int ret;
 	int ret_my;
 
-	   printf("%.s\n", "string");
-	ft_printf("%.s\n", "string");
-	   printf("%.3s\n", "string");
-	ft_printf("%.3s\n", "string");
-	   printf("%.5s\n", "string");
-	ft_printf("%.5s\n", "string");
-	   printf("%.10s\n", "string");
-	ft_printf("%.10s\n", "string");
-	
-	   printf("%s\n", "string");
-	ft_printf("%s\n", "string");
-	   printf("%-3s\n", "string");
-	ft_printf("%-3s\n", "string");
-	   printf("%5s\n", "string");
-	ft_printf("%5s\n", "string");
-	   printf("%10s\n", "string");
-	ft_printf("%10s\n", "string");
-
 	   printf("kek .%+-15d. kek\n", -9322);
 	ft_printf("kek .%+-15d. kek\n", -9322);
 	   printf("kek .%++15d. kek\n", -9322);
@@ -57,6 +39,10 @@ int main(int argc, char const *argv[])
 	ft_printf("Kek .%+015d.  kek\n", 19480921);
 	   printf("Kek .%+ 15d.  kek\n", 19480921);
 	ft_printf("Kek .%+ 15d.  kek\n", 19480921);
+	   printf("Kek .% d.  kek\n", 19480921);
+	ft_printf("Kek .% d.  kek\n", 19480921);	
+	  printf("Kek .%0-d.  kek\n", 19480921);
+	ft_printf("Kek .%0-d.  kek\n", 19480921);	
 
 // 	   printf("%-5d\n", -12);
 // 	ft_printf("%-5d\n", -12);
@@ -79,7 +65,26 @@ int main(int argc, char const *argv[])
 // 	ft_printf("%-010d b\n", -12);
 // 	   printf("%-10d a\n", -12);
 // 	ft_printf("%-10d a\n", -12);
+
+printf("s__________________________\n");
+	   printf(".%.s.\n", "string");
+	ft_printf(".%.s.\n", "string");
+	   printf(".%.3s.\n", "string");
+	ft_printf(".%.3s.\n", "string");
+	   printf(".%.5s.\n", "string");
+	ft_printf(".%.5s.\n", "string");
+	   printf(".%.10s.\n", "string");
+	ft_printf(".%.10s.\n", "string");
 	
+	   printf("++++%s++++\n", "astring");
+	ft_printf("++++%s++++\n", "astring");
+	   printf("---%-3s---\n", "string");
+	ft_printf("---%-3s---\n", "string");
+	   printf("aaa%+2.0saaa.\n", "string");
+	ft_printf("aaa%+2.0saaa.\n", "string");
+	   printf("%10s .a\n", "string");
+	ft_printf("%10s .a\n", "string");
+
 printf("i__________________________\n");
 	   printf("i: %i\n", 999);
 	ft_printf("i: %i\n", 999);

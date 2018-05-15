@@ -14,7 +14,7 @@
 
 void refresh_flags(t_data *d)
 {
-	d->info.percent = 5;
+	d->info.percent = 7;
 	d->info.width = 0;
 	d->info.cast = 0;
 	d->info.type = 0;
@@ -26,6 +26,7 @@ void refresh_flags(t_data *d)
 
 int		indentify_width(t_data *d)
 {
+	d->info.flags[WIDTH] = 1;
 	while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 	{
 		d->info.width *= 10;
@@ -37,9 +38,10 @@ int		indentify_width(t_data *d)
 
 int		indentify_precision(t_data *d)
 {
+	d->info.flags[PREC] = 1;
 	d->pos++;
 	if (!ft_isdigit(d->format[d->pos]))
-		d->info.precision = 6; //?
+		d->info.precision = 0; //?
 	else
 		while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 		{
@@ -52,23 +54,23 @@ int		indentify_precision(t_data *d)
 
 int		indentify_flags(t_data *d)
 {
-	if (d->format[d->pos] == '+' && !d->info.flags[SPACE])
-	{
-		d->info.flags[PLUS] = 1;
-	}
 	if (d->format[d->pos] == ' ')
 	{
-		d->info.flags[PLUS] = 1;
 		d->info.flags[SPACE] = 1;
 	}
-	if (d->format[d->pos] == '-' && !d->info.flags[ZERO])
+	if (d->format[d->pos] == '+')
 	{
-		d->info.flags[MINUS] = 1;
+		d->info.flags[PLUS] = 1;
+		d->info.flags[SPACE] = 0;
 	}
 	if (d->format[d->pos] == '0')
 	{
-		d->info.flags[MINUS] = 0;
 		d->info.flags[ZERO] = 1;
+	}
+	if (d->format[d->pos] == '-')
+	{
+		d->info.flags[MINUS] = 1;
+		d->info.flags[ZERO] = 0;
 	}
 	if (d->format[d->pos] == '#')
 	{
@@ -100,7 +102,8 @@ int	indentify_type(t_data *d)
 	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
 	{
 		d->info.type = d->format[d->pos];
-		print_string(va_arg(d->args, char *), d);
+		// print_string(va_arg(d->args, char *), d);
+		handle_string(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
@@ -139,6 +142,12 @@ int	indentify_type(t_data *d)
 		handle_xou(d);
 		return (1);
 	}
+	else if (d->format[d->pos] == '%')
+	{
+		d->info.type = d->format[d->pos];
+		handle_percent(d);
+		return (1);
+	}
 	return (0);
 }
 
@@ -172,14 +181,9 @@ void	parse_format(t_data *d)
 		// printf("pos: %d char %c\n", d->pos, d->format[d->pos]);
 		if (d->format[d->pos] == '%')
 		{
+			d->pos++;
 			identify_format(d);
 			//print arg
-			// printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",
-			// 	 d->info.type
-			// 	,d->info.width
-			// 	,d->info.precision
-			// 	,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4]
-			// 	,d->info.cast);
 			refresh_flags(d);
 		}
 		else

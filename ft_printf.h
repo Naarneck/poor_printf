@@ -30,8 +30,12 @@
 #define	PLUS 2
 #define	ZERO 3
 #define	SPACE 4
+#define	WIDTH 5
+#define	PREC 6
 
 #define	END 0
+
+#define TEST  printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",d->info.type,d->info.width,d->info.precision,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4],d->info.cast);
 //  sSpdDioOuUxXcC	
 //	hh, h, l, ll, j, et z.
 
@@ -41,7 +45,7 @@
 typedef struct	s_flags
 {
 	int 		percent;
-	int			flags[5];
+	int			flags[7];
 	int			width;
 	int			precision;
 	int			cast;
@@ -68,9 +72,17 @@ char	*ft_itoa_base(intmax_t value, int base);
 void	print_char(int c, t_data *d);
 void	print_string(char *str, t_data *d);
 int		ft_printf(char *format, ...);
+char	*ft_strdup(const char *s1);
+char	*ft_strsub(char const *s, unsigned int start, size_t len);
 
 void	handle_int(t_data *d);
 void	handle_xou(t_data *d);
+void	handle_string(t_data *d);
+void	handle_percent(t_data *d);
+
+void	handle_sharp(t_data *d);
+void	handle_plus(t_data *d);
+void	handle_space(t_data *d);
 
 void	handle_width(t_data *d);
 #endif

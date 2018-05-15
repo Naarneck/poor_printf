@@ -16,10 +16,25 @@ void	handle_plus(t_data *d)
 {
 	char	*temp;
 
-	if (d->info.flags[PLUS] && d->arg_string[0] != '-')
+	if ((d->info.flags[PLUS]) && (d->arg_string[0] != '-') && (d->info.type != 's')) // do better if!s
 	{
 		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 1);
 		temp[0] = '+';
+		temp[1] = '\0';
+		ft_strcat(temp, d->arg_string);
+		free(d->arg_string);
+		d->arg_string = temp;
+	}
+}
+
+void	handle_space(t_data *d)
+{
+	char	*temp;
+
+	if (d->info.flags[SPACE] && d->arg_string[0] != '-' && d->info.type != 's')
+	{
+		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 1);
+		temp[0] = ' ';
 		temp[1] = '\0';
 		ft_strcat(temp, d->arg_string);
 		free(d->arg_string);
@@ -61,6 +76,7 @@ void	handle_width(t_data *d)
 
 	handle_plus(d);
 	handle_sharp(d);
+	handle_space(d);
 	if ((size_t)d->info.width > ft_strlen(d->arg_string))
 	{
 		i = 0;
@@ -90,7 +106,8 @@ void	handle_width(t_data *d)
 		}		
 		free(d->arg_string);
 		d->arg_string = temp;
-		if (!ft_isdigit(d->arg_string[d->sym]) && d->info.flags[ZERO] && !d->info.flags[MINUS])
+		if (!ft_isdigit(d->arg_string[d->sym]) && d->info.flags[ZERO] && !d->info.flags[MINUS] 
+			&& d->info.type != 's')
 		{
 			c = d->arg_string[d->sym];
 			d->arg_string[d->sym] = d->arg_string[0];

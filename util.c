@@ -29,16 +29,30 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-// char	*ft_strdup(const char *s1)
-// {
-// 	char *str;
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
 
-// 	str = (char*)malloc(sizeof(char) * ft_strlen(s1) + 1);
-// 	if (!str)
-// 		return (NULL);
-// 	str = ft_strcpy(str, s1);
-// 	return (str);
-// }
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char *str;
+
+	str = (char*)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!str)
+		return (NULL);
+	str = ft_strcpy(str, s1);
+	return (str);
+}
 
 char	*ft_strcat(char *s1, const char *s2)
 {
@@ -73,6 +87,28 @@ char	*ft_strcat(char *s1, const char *s2)
 // 	}
 // 	return (temp);
 // }
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (s)
+	{
+		str = (char*)malloc(sizeof(char) * len + 1);
+		if (!str)
+			return (NULL);
+		while (len > 0)
+		{
+			str[i] = s[start];
+			start++;
+			i++;
+			len--;
+		}
+		return (str);
+	}
+	return (NULL);
+}
 
 int		ft_atoi(const char *str)
 {
