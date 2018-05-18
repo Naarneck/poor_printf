@@ -17,7 +17,10 @@ int main(int argc, char const *argv[])
 {
 	int ret;
 	int ret_my;
+	char *str = "sdsd";
 
+	ret = 0;
+	ret_my = 0;
 	   printf("kek .%+-15d. kek\n", -9322);
 	ft_printf("kek .%+-15d. kek\n", -9322);
 	   printf("kek .%++15d. kek\n", -9322);
@@ -66,6 +69,28 @@ int main(int argc, char const *argv[])
 // 	   printf("%-10d a\n", -12);
 // 	ft_printf("%-10d a\n", -12);
 
+printf("%%__________________________\n");
+	   printf(".%.%.\n", "string");
+	ft_printf(".%.%.\n", "string");
+	   printf(".%.3%.\n", "string");
+	ft_printf(".%.3%.\n", "string");
+	   printf(".%.5%.\n", "string");
+	ft_printf(".%.5%.\n", "string");
+	   printf(".%.10%.\n", "string");
+	ft_printf(".%.10%.\n", "string");
+printf("p__________________________\n");
+	   printf("u: %p\n", str);
+	ft_printf("u: %p\n", str);
+	   printf("lu: %lp\n", str);
+	ft_printf("lu: %lp\n", str);
+	   printf("llu: %lp\n", str);
+	ft_printf("llu: %lp\n", str);
+	   printf("zu: %zp\n", str);
+	ft_printf("zu: %zp\n", str);
+	   printf("hhu: %hp\n", str);
+	ft_printf("hhu: %hp\n", str);
+	   printf("hu: %hp\n", str);
+	ft_printf("hu: %hp\n", str);
 printf("s__________________________\n");
 	   printf(".%.s.\n", "string");
 	ft_printf(".%.s.\n", "string");

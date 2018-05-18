@@ -80,6 +80,7 @@ void	handle_int(t_data *d);
 void	handle_xou(t_data *d);
 void	handle_string(t_data *d);
 void	handle_percent(t_data *d);
+void	handle_p(t_data *d);
 
 void	handle_sharp(t_data *d);
 void	handle_plus(t_data *d);

@@ -60,6 +60,19 @@ void	handle_xou(t_data *d) //u o O x X
 	print_string(d->arg_string, d);
 }
 
+void	handle_p(t_data *d) //p
+{
+	void *p;
+
+	p = va_arg(d->args, void *);
+	d->arg_string = ft_itoa_base((intmax_t)p, 16);
+	d->info.type = 'x';
+	d->info.flags[HASH] = 1;
+	handle_sharp(d);
+	// handle_width(d);
+	print_string(d->arg_string, d);
+}
+
 void	handle_precision(t_data *d)
 {
 	if (d->info.flags[PREC])

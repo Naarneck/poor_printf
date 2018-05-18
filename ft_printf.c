@@ -124,7 +124,7 @@ int	indentify_type(t_data *d)
 	else if (d->format[d->pos] == 'p')
 	{
 		d->info.type = d->format[d->pos];
-		printf("pointer to do\n");
+		handle_p(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'o' || d->format[d->pos] == 'O')
