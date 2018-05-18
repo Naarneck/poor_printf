@@ -14,7 +14,7 @@
 
 void refresh_flags(t_data *d)
 {
-	d->info.percent = 7;
+	d->info.percent = 8;
 	d->info.width = 0;
 	d->info.cast = 0;
 	d->info.type = 0;
@@ -83,18 +83,21 @@ int		indentify_flags(t_data *d)
 
 void	indentify_cast(t_data *d)
 {
-	if (d->format[d->pos] == 'l')
-		d->info.cast = L;
-	else if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
+	if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
 		d->info.cast = LL;
-	else if (d->format[d->pos] == 'h')
-		d->info.cast = H;
+	else if (d->format[d->pos] == 'l')
+		d->info.cast = L;
 	else if (d->format[d->pos] == 'h' && d->format[d->pos + 1] == 'h')
 		d->info.cast = HH;
+	else if (d->format[d->pos] == 'h')
+		d->info.cast = H;
 	else if (d->format[d->pos] == 'j')
 		d->info.cast = J;
 	else if (d->format[d->pos] == 'z')
 		d->info.cast = Z;
+	if (d->format[d->pos] != ' ')
+		d->info.flags[CAST] = 1;
+	// printf("- %d -", d->info.cast );
 }
 
 int	indentify_type(t_data *d)
@@ -165,7 +168,8 @@ char		identify_format(t_data *d)
 		if (d->format[d->pos] == '.')
 			indentify_precision(d);
 		/*Check for hh, h, l, ll, j, et z. first*/
-		indentify_cast(d);
+		if (!d->info.flags[CAST])
+			indentify_cast(d);
 		/*Then check type!*/
 		if (indentify_type(d))
 			return (1); //to think about it

@@ -32,6 +32,7 @@
 #define	SPACE 4
 #define	WIDTH 5
 #define	PREC 6
+#define	CAST 7
 
 #define	END 0
 
@@ -45,7 +46,7 @@
 typedef struct	s_flags
 {
 	int 		percent;
-	int			flags[7];
+	int			flags[8];
 	int			width;
 	int			precision;
 	int			cast;

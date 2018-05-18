@@ -43,19 +43,19 @@ void	handle_xou(t_data *d) //u o O x X
 	else if (d->info.type == 'u' || d->info.type == 'U')
 		n = 10;  
 	if (d->info.cast == HH)
-		d->arg_string = ft_itoa_base((unsigned char)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((unsigned char)va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == H)
-		d->arg_string = ft_itoa_base((unsigned short int)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((unsigned short int)va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == L)
-		d->arg_string = ft_itoa_base((unsigned long int)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((unsigned long int)va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == LL)
-		d->arg_string = ft_itoa_base((unsigned long long int)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((unsigned long long int)va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == J)
-		d->arg_string = ft_itoa_base(va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base(va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == Z)
-		d->arg_string = ft_itoa_base((size_t)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((size_t)va_arg(d->args, uintmax_t), n);
 	else
-		d->arg_string = ft_itoa_base((unsigned int)va_arg(d->args, intmax_t), n);
+		d->arg_string = ft_itoa_base((unsigned int)va_arg(d->args, uintmax_t), n);
 	handle_width(d);
 	print_string(d->arg_string, d);
 }
