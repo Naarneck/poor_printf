@@ -167,7 +167,9 @@ char	*ft_itoa_base(intmax_t value, int base)
 	intmax_t n;
 	char *str;
 	int count;
-   
+
+	// if (base != 10 && value < 0)
+	// 	value = ~value;
 	count = digit_count(value, base);
 	n = value;
 	str = (char *)malloc(sizeof(char) * count + 1);

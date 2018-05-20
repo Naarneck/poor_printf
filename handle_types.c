@@ -56,6 +56,8 @@ void	handle_xou(t_data *d) //u o O x X
 		d->arg_string = ft_itoa_base((size_t)va_arg(d->args, uintmax_t), n);
 	else
 		d->arg_string = ft_itoa_base((unsigned int)va_arg(d->args, uintmax_t), n);
+	if (d->arg_string[0] == '0')
+		d->info.type = 'u';// this way i ignore function handle_hash
 	handle_width(d);
 	print_string(d->arg_string, d);
 }
@@ -68,7 +70,7 @@ void	handle_p(t_data *d) //p
 	d->arg_string = ft_itoa_base((intmax_t)p, 16);
 	d->info.type = 'x';
 	d->info.flags[HASH] = 1;
-	handle_sharp(d);
+	handle_hash(d);
 	// handle_width(d);
 	print_string(d->arg_string, d);
 }
