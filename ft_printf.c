@@ -58,21 +58,21 @@ int		indentify_flags(t_data *d)
 	{
 		d->info.flags[SPACE] = 1;
 	}
-	if (d->format[d->pos] == '+')
+	else if (d->format[d->pos] == '+')
 	{
 		d->info.flags[PLUS] = 1;
 		d->info.flags[SPACE] = 0;
 	}
-	if (d->format[d->pos] == '0')
+	else if (d->format[d->pos] == '0')
 	{
 		d->info.flags[ZERO] = 1;
 	}
-	if (d->format[d->pos] == '-')
+	else if (d->format[d->pos] == '-')
 	{
 		d->info.flags[MINUS] = 1;
 		d->info.flags[ZERO] = 0;
 	}
-	if (d->format[d->pos] == '#')
+	else if (d->format[d->pos] == '#')
 	{
 		d->info.flags[HASH] = 1;
 	}
@@ -95,9 +95,9 @@ void	indentify_cast(t_data *d)
 		d->info.cast = J;
 	else if (d->format[d->pos] == 'z')
 		d->info.cast = Z;
-	if (d->format[d->pos] != ' ')
+	if (d->info.cast != 0)
 		d->info.flags[CAST] = 1;
-	// printf("- %d -", d->info.cast );
+	// printf("- cast %d -", d->info.cast );
 }
 
 int	indentify_type(t_data *d)

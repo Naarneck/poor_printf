@@ -110,51 +110,67 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	return (NULL);
 }
 
-int		ft_atoi(const char *str)
+int		digit_count(intmax_t n, int base)
 {
-	int		i;
-	int		f;
-	long	res;
+	int 	i;
 
-	f = 0;
-	i = 0;
-	res = 0;
-	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
-	|| (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
-		i++;
-	if (str[i] == 45)
-		f += 1;
-	if (str[i] == 43 || str[i] == 45)
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		res = (res * 10) + (str[i] - 48);
-		i++;
-	}
-	if (f == 1)
-		return (-res);
+	if (base == 10 && n < 0)
+		i = 2;
 	else
-		return (res);
+		i = 1;
+	if (n >=0)
+		while (n >= base)
+		{
+			n = n / base;
+			i++;
+		}
+	else
+		while (n <= -base)
+		{
+			n = n / base;
+			i++;
+		}
+	return (i);
 }
 
+char	*ft_itoa_base(intmax_t n, int base)
+{
+	char *str;
+	int count;
 
-int		digit_count(intmax_t value, int base)
+	count = digit_count(n, base);
+	str = (char *)malloc(sizeof(char) * count + 1);
+	str[count] = '\0';
+	if (base == 10 && n < 0)
+		str[0] = '-';
+	count--;
+	if (n >= 0)
+		while (n >= base)
+		{
+			str[count] = (n % base < 10) ? n % base + '0' : n % base + 'a' - 10;
+			n = n / base;
+			count--;
+		}
+	else
+		while (n <= -base)
+		{
+			str[count] = (n % base < 10) ? -(n % base) + '0' : -(n % base) + 'a' - 10;
+			n = n / base;
+			count--;
+		}
+	if (n >= 0)
+		str[count] = (n < 10) ? n + '0' : n + 'a' - 10;
+	else
+		str[count] = (n < 10) ? -n + '0' : -n + 'a' - 10;
+	return(str);
+}
+
+int		digit_count_u(uintmax_t n, int base)
 {
 	int i;
-	intmax_t  n;
-
-	n = value;
+	
 	i = 1;
-	if (base == 10 && value < 0)
-	{
-		n = n * (-1);
-		i = 2;
-	}
-	if (base != 10 && value < 0)
-	{
-		n = n * (-1);
-	}
-	while (n >= base)
+	while (n >= (uintmax_t)base)
 	{
 		n = n / base;
 		i++;
@@ -162,34 +178,18 @@ int		digit_count(intmax_t value, int base)
 	return (i);
 }
 
-char	*ft_itoa_base(intmax_t value, int base)
+char	*ft_itoa_base_u(uintmax_t n, int base)
 {
-	intmax_t n;
 	char *str;
 	int count;
 
-	// if (base != 10 && value < 0)
-	// 	value = ~value;
-	count = digit_count(value, base);
-	n = value;
+	count = digit_count_u(n, base);
 	str = (char *)malloc(sizeof(char) * count + 1);
 	str[count] = '\0';
-	if (base == 10 && value < 0)
-	{
-		n = n * (-1);
-		str[0] = '-';
-	}
-	if (base != 10 && value < 0)
-	{
-		n = n * (-1);
-	}
 	count--;
-	while (n >= base)
+	while (n >= (uintmax_t)base)
 	{
-		if (n % base < 10)
-			str[count] = n % base + '0';
-		if (n % base >= 10)
-			str[count] = n % base + 'a' - 10;
+		str[count] = (n % base < 10) ? n % base + '0' : n % base + 'a' - 10;
 		n = n / base;
 		count--;
 	}

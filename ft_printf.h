@@ -36,7 +36,7 @@
 
 #define	END 0
 
-#define TEST  printf("\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d \ncast: %d\n",d->info.type,d->info.width,d->info.precision,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4],d->info.cast);
+#define TEST  printf("\n..........\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d %d %d %d\ncast: %d\n..........\n",d->info.type,d->info.width,d->info.precision,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4], d->info.flags[5], d->info.flags[6], d->info.flags[7],d->info.cast);
 //  sSpdDioOuUxXcC	
 //	hh, h, l, ll, j, et z.
 
@@ -55,8 +55,8 @@ typedef struct	s_flags
 
 typedef struct	s_data
 {
-	int			printed; //return num
 	va_list 	args; //args
+	int			printed; //return num
 	char 		*format; //format line
 	int			pos; //curr pos in format
 	t_flags		info;
@@ -70,6 +70,8 @@ int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
 int		digit_count(intmax_t value, int base);
 char	*ft_itoa_base(intmax_t value, int base);
+int		digit_count_u(uintmax_t value, int base);
+char	*ft_itoa_base_u(uintmax_t value, int base);
 void	print_char(int c, t_data *d);
 void	print_string(char *str, t_data *d);
 int		ft_printf(char *format, ...);
