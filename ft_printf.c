@@ -38,6 +38,7 @@ int		indentify_width(t_data *d)
 
 int		indentify_precision(t_data *d)
 {
+	d->info.flags[ZERO] = 0;
 	d->info.flags[PREC] = 1;
 	d->pos++;
 	if (!ft_isdigit(d->format[d->pos]))
@@ -48,7 +49,7 @@ int		indentify_precision(t_data *d)
 			d->info.precision *= 10;
 			d->info.precision += d->format[d->pos] - 48;
 			d->pos++;
-		}
+		}	
 	return (1);
 }
 
@@ -112,7 +113,8 @@ int	indentify_type(t_data *d)
 	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
 	{
 		d->info.type = d->format[d->pos];
-		print_char(va_arg(d->args, int), d);
+		// print_char(va_arg(d->args, int), d);
+		handle_char(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' || d->format[d->pos] == 'i')

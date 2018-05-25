@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include "ft_printf.h"
-#define VAL -9223372036854775808
+#define VAL 0
 
 int main(int argc, char const *argv[])
 {
@@ -99,8 +99,8 @@ printf("s__________________________\n");
 	ft_printf(".%.3s.\n", str);
 	   printf(".%.5s.\n", str);
 	ft_printf(".%.5s.\n", str);
-	   printf(".%.20s.\n", str);
-	ft_printf(".%.20s.\n", str);
+	   printf(".%.20s.\n", NULL);
+	ft_printf(".%.20s.\n", NULL);
 	
 	   printf("++++%s++++\n", "astring");
 	ft_printf("++++%s++++\n", "astring");
@@ -124,8 +124,11 @@ printf("i__________________________\n");
 	ft_printf("hhi: %hhi\n", VAL);
 	   printf("hi: %hi\n", VAL);
 	ft_printf("hi: %hi\n", VAL);
-	   printf("ji: %ji\n", VAL);
-	ft_printf("ji: %ji\n", VAL);
+	   printf("++ @d%++ d\n", 11);
+	ft_printf("++ @d%++ d\n", 11);
+	
+	   printf("prec0: .%5.d %5.0d.\n", 303, 0);
+	ft_printf("prec0: .%5.d %5.0d.\n", 303, 0);
 printf("u__________________________\n");
 	   printf("u: %u\n", VAL);
 	ft_printf("u: %u\n", VAL);
@@ -139,6 +142,10 @@ printf("u__________________________\n");
 	ft_printf("hhu: %hu\n", VAL);
 	   printf("hu: %hu\n", VAL);
 	ft_printf("hu: %hu\n", VAL);
+	   printf("_u: % u\n", 4294967295);
+	ft_printf("_u: % u\n", 4294967295);
+	   printf("+u: %+u\n", 4294967295);
+	ft_printf("+u: %+u\n", 4294967295);
 printf("o__________________________\n");
 	   printf("5x:%#08o\n", 42);
 	ft_printf("5x:%#08o\n", 42);
@@ -160,6 +167,8 @@ printf("o__________________________\n");
 	ft_printf("hho: %hho\n", VAL);
 	   printf("ho: %ho\n", VAL);
 	ft_printf("ho: %ho\n", VAL);
+	   printf("@moulitest: .%#.o %#.0o.\n", 0, 0);
+	ft_printf("@moulitest: .%#.o %#.0o.\n", 0, 0);
 printf("x__________________________\n");
 	   printf("5x:%#08x\n", 42);
 	ft_printf("5x:%#08x\n", 42);
@@ -181,6 +190,8 @@ printf("x__________________________\n");
 	ft_printf("hx: %#10hx\n", VAL);
 	   printf("jx: %#10jx\n", VAL);
 	ft_printf("jx: %#10jx\n", VAL);
+	   printf("prec0: .%5.x %5.0x.\n", 303, 0);
+	ft_printf("prec0: .%5.x %5.0x.\n", 303, 0);
 printf("X__________________________\n");
 	   printf("X: %#10X\n", VAL);
 	ft_printf("X: %#10X\n", VAL);
@@ -196,6 +207,51 @@ printf("X__________________________\n");
 	ft_printf("zX: %#10zX\n", VAL);
 	   printf("jx: %#10jX\n", VAL);
 	ft_printf("jx: %#10jX\n", VAL);	
+printf(".p-__________________________\n");
+	   printf("%4.15d\n",-42);
+	ft_printf("%4.15d\n",-42);
+	   printf("%-+10.5d\n",-4242);
+	ft_printf("%-+10.5d\n",-4242);
+	   printf("%10.20d\n",-42);
+	ft_printf("%10.20d\n",-42);
+	   printf("%-10.5d\n",-4242);
+	ft_printf("%-10.5d\n",-4242);
+	   printf("%+4.1d\n",-42);
+	ft_printf("%+4.1d\n",-42);
+	   printf("%.5d\n",-4242);
+	ft_printf("%.5d\n",-4242);
+printf(".p+__________________________\n");
+	   printf("%#4.15x\n",42);
+	ft_printf("%#4.15x\n",42);
+	   printf("%-+10.5x\n",4242);
+	ft_printf("%-+10.5x\n",4242);
+	   printf("%10.20x\n",42);
+	ft_printf("%10.20x\n",42);
+	   printf("%-10.5x\n",4242);
+	ft_printf("%-10.5x\n",4242);
+	   printf("%+4.1x\n",42);
+	ft_printf("%+4.1x\n",42);
+	   printf("%03.2d\n", 1);
+	ft_printf("%03.2d\n", 1);
+printf(".c__________________________\n");
+	   printf("%#4.15c\n",'a');
+	ft_printf("%#4.15c\n",'a');
+	   printf("%-+10.5c\n",'a');
+	ft_printf("%-+10.5c\n",'a');
+	   printf("%10.20c\n",'a');
+	ft_printf("%10.20c\n",'a');
+	   printf("%-10.5c\n",'a');
+	ft_printf("%-10.5c\n",'a');
+	   printf("%+4.1c\n",'a');
+	ft_printf("%+4.1c\n",'a');
+	   printf(".%.2c\n.", 1);
+	ft_printf(".%.2c\n.", 1);	
+	   printf(".%.2c\n.", 1);
+	ft_printf(".%.2c\n.", 1);	
+	   printf(".%.2c\n.", 1);
+	ft_printf(".%.2c\n.", 1);	
+	   printf(".% c.\n", 0);
+	ft_printf(".% c.\n", 0);	
 	printf("_____printf_end______\n");
 	// ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C", "123");
 	// ret_my = ft_printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");

@@ -118,7 +118,7 @@ int		digit_count(intmax_t n, int base)
 		i = 2;
 	else
 		i = 1;
-	if (n >=0)
+	if (n >= 0)
 		while (n >= base)
 		{
 			n = n / base;

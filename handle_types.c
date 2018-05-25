@@ -19,21 +19,21 @@ void	handle_int(t_data *d) //d D i
 		d->arg_string = ft_itoa_base((signed char)va_arg(d->args, int), 10);
 	else if (d->info.cast == H)
 		d->arg_string = ft_itoa_base((short int)va_arg(d->args, int), 10);
-	else if (d->info.cast == L){
-		// write (1, ": l  :", 6);
+	else if (d->info.cast == L)
 		d->arg_string = ft_itoa_base(va_arg(d->args, long int), 10);
-	}
 	else if (d->info.cast == LL)
-	{
-		// write (1, ": ll :", 6);
 		d->arg_string = ft_itoa_base(va_arg(d->args, long long int), 10);
-	}
 	else if (d->info.cast == J)
 		d->arg_string = ft_itoa_base(va_arg(d->args, intmax_t), 10);
 	else if (d->info.cast == Z)
 		d->arg_string = ft_itoa_base(va_arg(d->args, size_t), 10);
 	else
 		d->arg_string = ft_itoa_base(va_arg(d->args, int), 10);
+	if (d->info.precision == 0 && d->info.flags[PREC] && d->arg_string[0] == '0')
+	{
+		free(d->arg_string);
+		d->arg_string = ft_strdup("\0");
+	}
 	handle_width(d);
 	print_string(d->arg_string, d);
 }
@@ -63,6 +63,11 @@ void	handle_xou(t_data *d) //u o O x X
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned int), n);
 	if (d->arg_string[0] == '0')
 		d->info.type = 'u';//ignoring function handle_hash
+	if (d->info.precision == 0 && d->info.flags[PREC] && d->arg_string[0] == '0')
+	{
+		free(d->arg_string);
+		d->arg_string = ft_strdup("\0");
+	}
 	handle_width(d);
 	print_string(d->arg_string, d);
 }
@@ -88,7 +93,15 @@ void	handle_precision(t_data *d)
 
 void	handle_string(t_data *d)
 {
-	d->arg_string = ft_strdup(va_arg(d->args, char *));
+	char *temp;
+
+	temp = va_arg(d->args, char *);
+	if (temp == NULL)
+	{
+		print_string("(null)", d);
+		return ;
+	}
+	d->arg_string = ft_strdup(temp);
 	handle_precision(d);
 	handle_width(d);
 	print_string(d->arg_string, d);
@@ -98,6 +111,13 @@ void	handle_percent(t_data *d)
 {
 	d->arg_string = ft_strdup("%");
 	handle_width(d);
-	// handle_precision(d);
+	print_string(d->arg_string, d);
+}
+
+void	handle_char(t_data *d)
+{
+	d->arg_string =  ft_strdup("%");
+	d->arg_string[0] = va_arg(d->args, int);
+	handle_width(d);
 	print_string(d->arg_string, d);
 }
