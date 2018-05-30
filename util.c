@@ -12,6 +12,22 @@
 
 #include "ft_printf.h"
 
+int  valid_spec(t_data *d)
+{
+	char	*str;
+	int 	i;
+
+	i = 0;
+	str = "sSpdDioOuUxXcC% #+-0hljz.*123456789";
+	while (str[i] != '\0')
+	{
+		if (d->format[d->pos] == str[i])
+			return (1);
+	i++;
+	}
+	return (0);
+}
+
 int		ft_isdigit(char c)
 {
 	if (c > 47 && c < 58)

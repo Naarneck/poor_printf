@@ -11,7 +11,11 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "ft_printf.h"
+#include "ft_printf.h" 
+#include <wchar.h>
+#include <limits.h>
+
+#define VAL LONG_MAX
 #define VAL 0
 
 int main(int argc, char const *argv[])
@@ -48,27 +52,28 @@ int main(int argc, char const *argv[])
 	  printf("Kek .%0-d.  kek\n", VAL);
 	ft_printf("Kek .%0-d.  kek\n", VAL);	
 
-	   printf("%-5d\n", -12);
-	ft_printf("%-5d\n", -12);
-	   printf("%+5d\n", -12);
-	ft_printf("%+5d\n", -12);
-	   printf("%#5d\n", -12);
-	ft_printf("%#5d\n", -12);
-	   printf("%05d\n", -12);
-	ft_printf("%05d\n", -12);
-	   printf("% 5d\n", -12);
-	ft_printf("% 5d\n", -12);
+printf("D__________________________\n");
+	   printf("%-5D\n", VAL);
+	ft_printf("%-5D\n", VAL);
+	   printf("%+5D\n", VAL);
+	ft_printf("%+5D\n", VAL);
+	   printf("%#5D\n", VAL);
+	ft_printf("%#5D\n", VAL);
+	   printf("%05D\n", VAL);
+	ft_printf("%05D\n", VAL);
+	   printf("% 5D\n", VAL);
+	ft_printf("% 5D\n", VAL);
 
-	   printf("%010d e\n", -12);
-	ft_printf("%010d e\n", -12);
-	   printf("%010d d\n", -12);
-	ft_printf("%010d d\n", -12);
-	   printf("%010d c\n", -12);
-	ft_printf("%010d c\n", -12);
-	   printf("%-010d b\n", -12);
-	ft_printf("%-010d b\n", -12);
-	   printf("%-10d a\n", -12);
-	ft_printf("%-10d a\n", -12);
+	   printf("%010D e\n", VAL);
+	ft_printf("%010D e\n", VAL);
+	   printf("%010D d\n", VAL);
+	ft_printf("%010D d\n", VAL);
+	   printf("%010D c\n", VAL);
+	ft_printf("%010D c\n", VAL);
+	   printf("%-010D b\n", VAL);
+	ft_printf("%-010D b\n", VAL);
+	   printf("%-10D a\n", VAL);
+	ft_printf("%-10D a\n", VAL);
 
 printf("%%__________________________\n");
 	   printf("%   %\n", str);
@@ -101,7 +106,8 @@ printf("s__________________________\n");
 	ft_printf(".%.5s.\n", str);
 	   printf(".%.20s.\n", NULL);
 	ft_printf(".%.20s.\n", NULL);
-	
+	   printf("%S", L"Á±≥\n");
+	ft_printf("%S", L"Á±≥\n");
 	   printf("++++%s++++\n", "astring");
 	ft_printf("++++%s++++\n", "astring");
 	   printf("---%-3s---\n", "string");
@@ -126,7 +132,10 @@ printf("i__________________________\n");
 	ft_printf("hi: %hi\n", VAL);
 	   printf("++ @d%++ d\n", 11);
 	ft_printf("++ @d%++ d\n", 11);
-	
+	   printf("%0+5d\n", -42);
+	ft_printf("%0+5d\n", -42);
+	   printf("%0+5d\n", 42);
+	ft_printf("%0+5d\n", 42);
 	   printf("prec0: .%5.d %5.0d.\n", 303, 0);
 	ft_printf("prec0: .%5.d %5.0d.\n", 303, 0);
 printf("u__________________________\n");
@@ -146,6 +155,11 @@ printf("u__________________________\n");
 	ft_printf("_u: % u\n", 4294967295);
 	   printf("+u: %+u\n", 4294967295);
 	ft_printf("+u: %+u\n", 4294967295);
+	   printf("%hU\n", 4294967296);
+	ft_printf("%hU\n", 4294967296);
+	   printf("%U\n", 4294967296);
+	ft_printf("%U\n", 4294967296);
+
 printf("o__________________________\n");
 	   printf("5x:%#08o\n", 42);
 	ft_printf("5x:%#08o\n", 42);
@@ -244,14 +258,23 @@ printf(".c__________________________\n");
 	ft_printf("%-10.5c\n",'a');
 	   printf("%+4.1c\n",'a');
 	ft_printf("%+4.1c\n",'a');
-	   printf(".%.2c\n.", 1);
-	ft_printf(".%.2c\n.", 1);	
-	   printf(".%.2c\n.", 1);
-	ft_printf(".%.2c\n.", 1);	
-	   printf(".%.2c\n.", 1);
-	ft_printf(".%.2c\n.", 1);	
-	   printf(".% c.\n", 0);
-	ft_printf(".% c.\n", 0);	
+	   printf(".%.2c.\n", 1);
+	ft_printf(".%.2c.\n", 1);	
+	   printf(".%.2c.\n", 1);
+	ft_printf(".%.2c.\n", 1);	
+	   printf(".%.2c.\n", 1);
+	ft_printf(".%.2c.\n", 1);	
+	   printf("% Zoooo\n");
+	ft_printf("% Zoooo\n");
+	ret =       printf("@moulitest: .%c.\n", 0);
+	ret_my = ft_printf("@MYulitest: .%c.\n", 0);
+	ret =       printf("@moulitest: .%0c.\n", 0);
+	ret_my = ft_printf("@MYulitest: .%0c.\n", 0);
+	ret =       printf("@moulitest: .%1c.\n", 0);
+	ret_my = ft_printf("@MYulitest: .%1c.\n", 0);
+	ret =       printf("@moulitest: .%2c.\n", 0);
+	ret_my = ft_printf("@MYulitest: .%2c.\n", 0);
+	printf("ret_my= %d ret= %d\n",ret_my, ret );
 	printf("_____printf_end______\n");
 	// ft_printf("%s%S%p%d%D%i%o%O%u%U%x%X%c%C", "123");
 	// ret_my = ft_printf("ololo: %c%c%c%s\n",'K','E','K',"ssoso");

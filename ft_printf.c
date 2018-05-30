@@ -49,7 +49,7 @@ int		indentify_precision(t_data *d)
 			d->info.precision *= 10;
 			d->info.precision += d->format[d->pos] - 48;
 			d->pos++;
-		}	
+		}
 	return (1);
 }
 
@@ -112,7 +112,7 @@ int	indentify_type(t_data *d)
 	}
 	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
 	{
-		d->info.type = d->format[d->pos];
+		// d->info.type = d->format[d->pos];
 		// print_char(va_arg(d->args, int), d);
 		handle_char(d);
 		return (1);
@@ -161,10 +161,16 @@ char		identify_format(t_data *d)
 {
 	while (d->format[d->pos] != '\0')
 	{
+		// printf("pos: %d char %c\n", d->pos, d->format[d->pos]);
+		if (!valid_spec(d))
+		{
+			print_char(d->format[d->pos], d);
+			return (2); 
+		}
 		/*Check for flags*/
 		indentify_flags(d);
 		/*Check for width*/
-		if (ft_isdigit(d->format[d->pos]))
+		if (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '0')
 			indentify_width(d);
 		/*Check for precision*/
 		if (d->format[d->pos] == '.')
@@ -183,19 +189,16 @@ char		identify_format(t_data *d)
 void	parse_format(t_data *d)
 {
 	while (d->format[d->pos] != '\0')
-	{	
-		// printf("pos: %d char %c\n", d->pos, d->format[d->pos]);
+	{
 		if (d->format[d->pos] == '%')
 		{
 			d->pos++;
-			identify_format(d);
-			//print arg
+			if (!identify_format(d)) // \0 reached
+				return ;
 			refresh_flags(d);
 		}
-		else
-		{
+		else 
 			print_char(d->format[d->pos], d);
-		}
 		d->pos++;
 	}
 }

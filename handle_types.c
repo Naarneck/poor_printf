@@ -48,12 +48,12 @@ void	handle_xou(t_data *d) //u o O x X
 	else
 		n = 10;
 	if (d->info.cast == HH)
-		d->arg_string = ft_itoa_base_u((unsigned char)va_arg(d->args, unsigned int), n);
-	else if (d->info.cast == H)
-		d->arg_string = ft_itoa_base_u((unsigned short int)va_arg(d->args, unsigned int), n);
-	else if (d->info.cast == L)
+		d->arg_string = ft_itoa_base_u((unsigned char)va_arg(d->args, uintmax_t), n);
+	else if (d->info.cast == H && d->info.type != 'U')
+		d->arg_string = ft_itoa_base_u((unsigned short int)va_arg(d->args, uintmax_t), n);
+	else if (d->info.cast == L )
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned long int), n);
-	else if (d->info.cast == LL)
+	else if (d->info.cast == LL || d->info.type == 'U')
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned long long int), n);
 	else if (d->info.cast == J)
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, uintmax_t), n);
@@ -61,9 +61,9 @@ void	handle_xou(t_data *d) //u o O x X
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, size_t), n);
 	else
 		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned int), n);
-	if (d->arg_string[0] == '0')
+	if (d->arg_string[0] == '0' && d->info.type != 'o')
 		d->info.type = 'u';//ignoring function handle_hash
-	if (d->info.precision == 0 && d->info.flags[PREC] && d->arg_string[0] == '0')
+	if (d->info.flags[PREC] && d->info.precision == 0  && d->arg_string[0] == '0')
 	{
 		free(d->arg_string);
 		d->arg_string = ft_strdup("\0");
@@ -116,8 +116,26 @@ void	handle_percent(t_data *d)
 
 void	handle_char(t_data *d)
 {
-	d->arg_string =  ft_strdup("%");
-	d->arg_string[0] = va_arg(d->args, int);
-	handle_width(d);
-	print_string(d->arg_string, d);
+	char	temp;
+	int		i;
+
+	temp = (char)va_arg(d->args, int);
+	if (!d->info.flags[WIDTH])
+	{
+		print_char(temp, d);
+		return ;
+	}
+	i = 0;
+	if (!d->info.flags[MINUS])
+	{
+		while (i++ < d->info.width - 1)
+			print_char(' ', d);
+		print_char(temp, d);
+	}
+	else if (d->info.flags[MINUS])
+	{
+		print_char(temp, d);
+		while (i++ < d->info.width - 1)
+			print_char(' ', d);
+	}
 }

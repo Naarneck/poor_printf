@@ -77,6 +77,7 @@ void	print_string(char *str, t_data *d);
 int		ft_printf(char *format, ...);
 char	*ft_strdup(const char *s1);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
+int		valid_spec(t_data * t);
 
 void	handle_int(t_data *d);
 void	handle_xou(t_data *d);

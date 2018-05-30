@@ -30,7 +30,7 @@ void	handle_precision_int(t_data *d)
 	if (d->info.precision > count)
 	{
 		count = d->info.precision - count;
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + count);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + count));
 		if (d->arg_string[0] == '-')
 		{
 			count--;
@@ -55,11 +55,9 @@ void	handle_plus(t_data *d)
 {
 	char	*temp;
 
-
 	if ((d->info.flags[PLUS]) && (d->arg_string[0] != '-') && (d->info.type != 's')) // do better if!s
 	{
-		// printf(": plus :");
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 1);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + 1));
 		temp[0] = '+';
 		temp[1] = '\0';
 		ft_strcat(temp, d->arg_string);
@@ -76,7 +74,7 @@ void	handle_space(t_data *d)
 	if (d->info.flags[SPACE] && d->arg_string[0] != '-' && d->arg_string[0] != '+' && d->info.type != 's' && d->info.type != '%')
 	{
 		// printf(": space :");
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 1);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + 1));
 		temp[0] = ' ';
 		temp[1] = '\0';
 		ft_strcat(temp, d->arg_string);
@@ -93,7 +91,7 @@ void	handle_hash(t_data *d)
 	if (d->info.flags[HASH] && (d->info.type == 'x' || d->info.type == 'X'))
 	{
 		// printf(": hash :");	
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 2);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + 2));
 		temp[0] = '0';
 		temp[1] = 'x';
 		temp[2] = '\0';
@@ -103,7 +101,7 @@ void	handle_hash(t_data *d)
 	}
 	else if (d->info.flags[HASH] && (d->info.type == 'o' || d->info.type == 'O'))
 	{
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + 1);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + 1));
 		temp[0] = '0';
 		temp[1] = '\0';
 		ft_strcat(temp, d->arg_string);
@@ -131,17 +129,17 @@ void	handle_width(t_data *d)
 		handle_precision_int(d);
 	// printf(">%s\n", d->arg_string);
 	if (d->info.type != 'x' && d->info.type != 'X' && d->info.type != 'c'
-		&& d->info.type != 'u')
+		&& d->info.type != 'u' && d->info.type != 'U')
 	handle_plus(d);
 	handle_hash(d);
 	if (d->info.type != 'x' && d->info.type != 'X' && d->info.type != 'c'
-		&& d->info.type != 'u')
+		&& d->info.type != 'u' && d->info.type != 'U')
 	handle_space(d);
 	if ((size_t)d->info.width > ft_strlen(d->arg_string))
 	{
 		i = 0;
 		d->sym = d->info.width - ft_strlen(d->arg_string);
-		temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + d->sym);
+		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + d->sym));
 		if  (!d->info.flags[MINUS])
 		{
 			i = -1;
