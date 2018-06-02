@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdio.h> //del
 #include <stdlib.h>
-
+#include <stdint.h>
 #define	NONE 0
 #define	HH 1
 #define	L 2
@@ -86,6 +86,7 @@ void	handle_percent(t_data *d);
 void	handle_p(t_data *d);
 void	handle_char(t_data *d);
 
+void	handle_precision_int(t_data *d);
 void	handle_hash(t_data *d);
 void	handle_plus(t_data *d);
 void	handle_space(t_data *d);
