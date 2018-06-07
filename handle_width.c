@@ -97,7 +97,7 @@ void	handle_hash(t_data *d)
 		free(d->arg_string);
 		d->arg_string = temp;
 	}
-	else if (d->info.flags[HASH] && (d->info.type == 'o' || d->info.type == 'O'))
+	else if (d->info.flags[HASH] && d->arg_string[0] != '0' && (d->info.type == 'o' || d->info.type == 'O'))
 	{
 		temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + 1));
 		temp[0] = '0';
@@ -153,9 +153,12 @@ void	handle_width(t_data *d)
 		i = 0;
 		if (d->arg_string[d->sym] == '0')
 			i = 1 && d->sym++;
-		if (!ft_isdigit(d->arg_string[d->sym]) && d->info.flags[ZERO] && !d->info.flags[MINUS] 
-			&& d->info.type != 's')
+		if (!(ft_isdigit(d->arg_string[d->sym]) || (d->arg_string[i] > 96 && d->arg_string[i] < 103)) && d->info.flags[ZERO] && !d->info.flags[MINUS] 
+			// && d->info.type != 's'
+
+			)
 		{
+			printf("keke\n");
 			c = d->arg_string[d->sym];
 			d->arg_string[d->sym] = d->arg_string[i];
 			d->arg_string[i] = c;

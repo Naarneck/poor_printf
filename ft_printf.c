@@ -129,9 +129,11 @@ int	indentify_type(t_data *d)
 	}
 	else if (d->format[d->pos] == 'p')
 	{
-		d->info.type = d->format[d->pos];
+		// d->info.type = d->format[d->pos];
 		handle_p(d);
+		handle_precision_int(d);
 		handle_hash(d);
+		handle_width(d);
 		print_string(d->arg_string, d);
 		return (1);
 	}
@@ -140,9 +142,9 @@ int	indentify_type(t_data *d)
 		d->info.type = d->format[d->pos];
 		handle_xou(d);
 		handle_precision_int(d);
-		handle_plus(d);
+		// handle_plus(d);
 		handle_hash(d);
-		handle_space(d);
+		// handle_space(d);
 		handle_width(d);
 		print_string(d->arg_string, d);
 		return (1);

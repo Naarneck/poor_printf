@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdio.h> //del
 #include <stdlib.h>
-#include <stdint.h>
+// #include <stdint.h>
 #define	NONE 0
 #define	HH 1
 #define	L 2

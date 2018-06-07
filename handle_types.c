@@ -74,8 +74,13 @@ void	handle_p(t_data *d)
 
 	p = va_arg(d->args, void *);
 	d->arg_string = ft_itoa_base((intmax_t)p, 16);
-	d->info.type = 'x';
+	if (d->info.flags[PREC] && d->info.precision == 0  && d->arg_string[0] == '0')
+	{
+		free(d->arg_string);
+		d->arg_string = ft_strdup("\0");
+	}
 	d->info.flags[HASH] = 1;
+	d->info.type = 'x';
 }
 
 void	handle_precision(t_data *d)
