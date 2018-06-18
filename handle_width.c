@@ -14,8 +14,8 @@
 
 void	handle_precision_int(t_data *d)
 {
-	int i;
-	int count;
+	int		i;
+	int		count;
 	char	*temp;
 	
 	count = 0;
@@ -132,12 +132,10 @@ void	handle_width(t_data *d)
 		{
 			i = -1;
 			while (++i < d->sym)
-			{
 				if (d->info.flags[ZERO])
 					temp[i] = '0';
 				else
 					temp[i] = ' ';
-			}
 		}
 		temp[i] = '\0';
 		ft_strcat(temp, d->arg_string);
@@ -153,15 +151,20 @@ void	handle_width(t_data *d)
 		i = 0;
 		if (d->arg_string[d->sym] == '0')
 			i = 1 && d->sym++;
-		if (!(ft_isdigit(d->arg_string[d->sym]) || (d->arg_string[i] > 96 && d->arg_string[i] < 103)) && d->info.flags[ZERO] && !d->info.flags[MINUS] 
-			// && d->info.type != 's'
-
-			)
+		if (!(ft_isdigit(d->arg_string[d->sym]) || (d->arg_string[d->sym] > 96 && d->arg_string[d->sym] < 103)) && d->info.flags[ZERO] && !d->info.flags[MINUS])
 		{
-			printf("keke\n");
 			c = d->arg_string[d->sym];
 			d->arg_string[d->sym] = d->arg_string[i];
 			d->arg_string[i] = c;
 		}
 	}
+}
+
+void	ft_swap(i, k, t_data * d)
+{
+	char c;
+
+	c = d->arg_string[k];
+	d->arg_string[k] = d->arg_string[i];
+	d->arg_string[i] = c;
 }

@@ -302,7 +302,6 @@ printf(".c__________________________\n");
 	// ret_my = ft_printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
 	// ret =	    printf("orroo: %-509.389hhs + % 500.388hhs\n","such","test");
 	printf("ret_my= %d ret= %d\n",ret_my, ret );
-
 	return 0;
 }
 

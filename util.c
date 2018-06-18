@@ -12,10 +12,10 @@
 
 #include "ft_printf.h"
 
-int  valid_spec(t_data *d)
+int		valid_spec(t_data *d)
 {
 	char	*str;
-	int 	i;
+	int		i;
 
 	i = 0;
 	str = "sSpdDioOuUxXcC% #+-0hljz.*123456789";
@@ -23,7 +23,7 @@ int  valid_spec(t_data *d)
 	{
 		if (d->format[d->pos] == str[i])
 			return (1);
-	i++;
+		i++;
 	}
 	return (0);
 }
@@ -89,46 +89,9 @@ char	*ft_strcat(char *s1, const char *s2)
 	return (s1);
 }
 
-// void	*ft_memset(void *b, int c, size_t len)
-// {
-// 	size_t			i;
-// 	char			*temp;
-
-// 	temp = (char *)b;
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		temp[i] = c;
-// 		i++;
-// 	}
-// 	return (temp);
-// }
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	if (s)
-	{
-		str = (char*)malloc(sizeof(char) * len + 1);
-		if (!str)
-			return (NULL);
-		while (len > 0)
-		{
-			str[i] = s[start];
-			start++;
-			i++;
-			len--;
-		}
-		return (str);
-	}
-	return (NULL);
-}
-
 int		digit_count(intmax_t n, int base)
 {
-	int 	i;
+	int i;
 
 	if (base == 10 && n < 0)
 		i = 2;
@@ -151,26 +114,26 @@ int		digit_count(intmax_t n, int base)
 
 char	*ft_itoa_base(intmax_t n, int base)
 {
-	char *str;
-	int count;
+	char	*str;
+	int		count;
 
 	count = digit_count(n, base);
 	str = (char *)malloc(sizeof(char) * count + 1);
-	str[count] = '\0';
+	str[count--] = '\0';
 	if (base == 10 && n < 0)
 		str[0] = '-';
-	count--;
+	// count--;
 	if (n >= 0)
 		while (n >= base)
 		{
-			str[count] = (n % base < 10) ? n % base + '0' : n % base + 'a' - 10;
+			str[count] = (n % base < 10) ? n % base + 48 : n % base + 87;
 			n = n / base;
 			count--;
 		}
 	else
 		while (n <= -base)
 		{
-			str[count] = (n % base < 10) ? -(n % base) + '0' : -(n % base) + 'a' - 10;
+			str[count] = (n % base < 10) ? -(n % base) + 48 : -(n % base) + 87;
 			n = n / base;
 			count--;
 		}
@@ -178,13 +141,13 @@ char	*ft_itoa_base(intmax_t n, int base)
 		str[count] = (n < 10) ? n + '0' : n + 'a' - 10;
 	else
 		str[count] = (n < 10) ? -n + '0' : -n + 'a' - 10;
-	return(str);
+	return (str);
 }
 
 int		digit_count_u(uintmax_t n, int base)
 {
-	int i;
-	
+	int	i;
+
 	i = 1;
 	while (n >= (uintmax_t)base)
 	{
@@ -196,8 +159,8 @@ int		digit_count_u(uintmax_t n, int base)
 
 char	*ft_itoa_base_u(uintmax_t n, int base)
 {
-	char *str;
-	int count;
+	char	*str;
+	int		count;
 
 	count = digit_count_u(n, base);
 	str = (char *)malloc(sizeof(char) * count + 1);
@@ -209,11 +172,11 @@ char	*ft_itoa_base_u(uintmax_t n, int base)
 		n = n / base;
 		count--;
 	}
-	if (n  < 10)
+	if (n < 10)
 		str[count] = n + '0';
 	else
 		str[count] = n + 'a' - 10;
-	return(str);
+	return (str);
 }
 
 void	print_char(int c, t_data *d)
