@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdio.h> //del
 #include <stdlib.h>
-// #include <stdint.h>
+
 #define	NONE 0
 #define	HH 1
 #define	L 2
@@ -37,12 +37,7 @@
 #define	END 0
 
 #define TEST  printf("\n..........\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d %d %d %d\ncast: %d\n..........\n",d->info.type,d->info.width,d->info.precision,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4], d->info.flags[5], d->info.flags[6], d->info.flags[7],d->info.cast);
-//  sSpdDioOuUxXcC	
-//	hh, h, l, ll, j, et z.
 
-//  printf("%-+5,10d", 10);
-// % ... # '-+# 0' 6 .10 s
-// %[flags] [width] [.precision] [{h | l | ll | w | I | I32 | I64}] type
 typedef struct	s_flags
 {
 	int 		percent;
@@ -55,10 +50,10 @@ typedef struct	s_flags
 
 typedef struct	s_data
 {
-	va_list 	args; //args
-	int			printed; //return num
-	char 		*format; //format line
-	int			pos; //curr pos in format
+	va_list 	args;
+	int			printed;
+	char 		*format;
+	int			pos;
 	t_flags		info;
 	char 		*arg_string;
 	size_t 		sym;
@@ -71,13 +66,14 @@ int		ft_atoi(const char *str);
 int		digit_count(intmax_t value, int base);
 char	*ft_itoa_base(intmax_t value, int base);
 int		digit_count_u(uintmax_t value, int base);
-char	*ft_itoa_base_u(uintmax_t value, int base);
+char	*ft_utoa_base(uintmax_t value, int base);
 void	print_char(int c, t_data *d);
 void	print_string(char *str, t_data *d);
 int		ft_printf(char *format, ...);
 char	*ft_strdup(const char *s1);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 int		valid_spec(t_data * t);
+void	ft_swap(size_t i,size_t k, t_data * d);
 
 void	handle_int(t_data *d);
 void	handle_xou(t_data *d);
@@ -92,4 +88,5 @@ void	handle_plus(t_data *d);
 void	handle_space(t_data *d);
 
 void	handle_width(t_data *d);
+
 #endif

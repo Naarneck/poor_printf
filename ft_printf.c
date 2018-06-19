@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void refresh_flags(t_data *d)
+void	refresh_flags(t_data *d)
 {
 	d->info.percent = 8;
 	d->info.width = 0;
@@ -42,7 +42,7 @@ int		indentify_precision(t_data *d)
 	d->info.flags[PREC] = 1;
 	d->pos++;
 	if (!ft_isdigit(d->format[d->pos]))
-		d->info.precision = 0; //?
+		d->info.precision = 0;
 	else
 		while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
 		{
@@ -80,8 +80,6 @@ int		indentify_flags(t_data *d)
 	return (1);
 }
 
-//remember flags here
-
 void	indentify_cast(t_data *d)
 {
 	if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
@@ -98,24 +96,22 @@ void	indentify_cast(t_data *d)
 		d->info.cast = Z;
 	if (d->info.cast != 0)
 		d->info.flags[CAST] = 1;
-	// printf("- cast %d -", d->info.cast );
 }
 
-int	indentify_type(t_data *d)
+int		indentify_type(t_data *d)
 {
 	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
 	{
-		d->info.type = d->format[d->pos];
 		handle_string(d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
 	{
-		// d->info.type = d->format[d->pos];
 		handle_char(d);
 		return (1);
 	}
-	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' || d->format[d->pos] == 'i')
+	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' 
+		|| d->format[d->pos] == 'i')
 	{
 		d->info.type = d->format[d->pos];
 		handle_int(d);
@@ -129,7 +125,6 @@ int	indentify_type(t_data *d)
 	}
 	else if (d->format[d->pos] == 'p')
 	{
-		// d->info.type = d->format[d->pos];
 		handle_p(d);
 		handle_precision_int(d);
 		handle_hash(d);
@@ -142,22 +137,18 @@ int	indentify_type(t_data *d)
 		d->info.type = d->format[d->pos];
 		handle_xou(d);
 		handle_precision_int(d);
-		// handle_plus(d);
 		handle_hash(d);
-		// handle_space(d);
 		handle_width(d);
 		print_string(d->arg_string, d);
 		return (1);
 	}
 	else if (d->format[d->pos] == 'x' || d->format[d->pos] == 'X' ||
-	 d->format[d->pos] == 'u' || d->format[d->pos] == 'U')
+	d->format[d->pos] == 'u' || d->format[d->pos] == 'U')
 	{
 		d->info.type = d->format[d->pos];
 		handle_xou(d);
 		handle_precision_int(d);
-		// handle_plus(d);
 		handle_hash(d);
-		// handle_space(d);
 		handle_width(d);
 		print_string(d->arg_string, d);
 		return (1);
@@ -171,31 +162,24 @@ int	indentify_type(t_data *d)
 	return (0);
 }
 
-
-char		identify_format(t_data *d)
+char	identify_format(t_data *d)
 {
 	while (d->format[d->pos] != '\0')
 	{
-		// printf("pos: %d char %c\n", d->pos, d->format[d->pos]);
 		if (!valid_spec(d))
 		{
 			print_char(d->format[d->pos], d);
-			return (2); 
+			return (2);
 		}
-		/*Check for flags*/
 		indentify_flags(d);
-		/*Check for width*/
 		if (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '0')
 			indentify_width(d);
-		/*Check for precision*/
 		if (d->format[d->pos] == '.')
 			indentify_precision(d);
-		/*Check for hh, h, l, ll, j, et z. first*/
 		if (!d->info.flags[CAST])
 			indentify_cast(d);
-		/*Then check type!*/
 		if (indentify_type(d))
-			return (1); //to think about it
+			return (1);
 		d->pos++;
 	}
 	return (0);
@@ -208,17 +192,15 @@ void	parse_format(t_data *d)
 		if (d->format[d->pos] == '%')
 		{
 			d->pos++;
-			if (!identify_format(d)) // \0 reached
+			if (!identify_format(d))
 				return ;
 			refresh_flags(d);
 		}
-		else 
+		else
 			print_char(d->format[d->pos], d);
 		d->pos++;
 	}
 }
-
-//segfault if no args, and it's ok
 
 int		ft_printf(char *format, ...)
 {

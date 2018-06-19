@@ -12,7 +12,21 @@
 
 #include "ft_printf.h"
 
-void	handle_int(t_data *d) //d D i
+void	zero_crutch(t_data *d, int a)
+{
+	if (a)
+		if (d->arg_string[0] == '0' && d->info.type != 'o'
+			&& d->info.type != 'O')
+			d->info.type = 'u';
+	if (d->info.flags[PREC] && d->info.precision == 0
+													&& d->arg_string[0] == '0')
+	{
+		free(d->arg_string);
+		d->arg_string = ft_strdup("\0");
+	}
+}
+
+void	handle_int(t_data *d)
 {
 	if (d->info.cast == J || d->info.type == 'D')
 		d->arg_string = ft_itoa_base(va_arg(d->args, intmax_t), 10);
@@ -28,44 +42,36 @@ void	handle_int(t_data *d) //d D i
 		d->arg_string = ft_itoa_base(va_arg(d->args, size_t), 10);
 	else
 		d->arg_string = ft_itoa_base(va_arg(d->args, int), 10);
-	if (d->info.precision == 0 && d->info.flags[PREC] && d->arg_string[0] == '0')
-	{
-		free(d->arg_string);
-		d->arg_string = ft_strdup("\0");
-	}
+	zero_crutch(d, 0);
 }
 
-void	handle_xou(t_data *d) //u o O x X
+void	handle_xou(t_data *d)
 {
 	int n;
 
+	n = 10;
 	if (d->info.type == 'x' || d->info.type == 'X')
 		n = 16;
 	else if (d->info.type == 'o' || d->info.type == 'O')
 		n = 8;
-	else
-		n = 10;
 	if (d->info.cast == LL || d->info.type == 'U' || d->info.type == 'O')
-		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned long long int), n);
+		d->arg_string = ft_utoa_base(va_arg(d->args,
+													unsigned long long int), n);
 	else if (d->info.cast == HH)
-		d->arg_string = ft_itoa_base_u((unsigned char)va_arg(d->args, uintmax_t), n);
+		d->arg_string = ft_utoa_base((unsigned char)va_arg(d->args,
+																uintmax_t), n);
 	else if (d->info.cast == H)
-		d->arg_string = ft_itoa_base_u((unsigned short int)va_arg(d->args, uintmax_t), n);
-	else if (d->info.cast == L )
-		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned long int), n);
+		d->arg_string = ft_utoa_base((unsigned short int)va_arg(d->args,
+																uintmax_t), n);
+	else if (d->info.cast == L)
+		d->arg_string = ft_utoa_base(va_arg(d->args, unsigned long int), n);
 	else if (d->info.cast == J)
-		d->arg_string = ft_itoa_base_u(va_arg(d->args, uintmax_t), n);
+		d->arg_string = ft_utoa_base(va_arg(d->args, uintmax_t), n);
 	else if (d->info.cast == Z)
-		d->arg_string = ft_itoa_base_u(va_arg(d->args, size_t), n);
+		d->arg_string = ft_utoa_base(va_arg(d->args, size_t), n);
 	else
-		d->arg_string = ft_itoa_base_u(va_arg(d->args, unsigned int), n);
-	if (d->arg_string[0] == '0' && d->info.type != 'o' && d->info.type != 'O')
-		d->info.type = 'u'; //ignoring function handle_hash
-	if (d->info.flags[PREC] && d->info.precision == 0  && d->arg_string[0] == '0')
-	{
-		free(d->arg_string);
-		d->arg_string = ft_strdup("\0");
-	}
+		d->arg_string = ft_utoa_base(va_arg(d->args, unsigned int), n);
+	zero_crutch(d, 1);
 }
 
 void	handle_p(t_data *d)
@@ -74,7 +80,8 @@ void	handle_p(t_data *d)
 
 	p = va_arg(d->args, void *);
 	d->arg_string = ft_itoa_base((intmax_t)p, 16);
-	if (d->info.flags[PREC] && d->info.precision == 0  && d->arg_string[0] == '0')
+	if (d->info.flags[PREC] && d->info.precision == 0
+													&& d->arg_string[0] == '0')
 	{
 		free(d->arg_string);
 		d->arg_string = ft_strdup("\0");

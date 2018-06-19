@@ -16,7 +16,7 @@
 #include <limits.h>
 
 #define VAL LONG_MAX
-#define VAL 0
+
 
 int main(int argc, char const *argv[])
 {

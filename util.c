@@ -12,6 +12,15 @@
 
 #include "ft_printf.h"
 
+void		ft_swap(size_t i,size_t k, t_data * d)
+{
+	char	c;
+
+	c = d->arg_string[k];
+	d->arg_string[k] = d->arg_string[i];
+	d->arg_string[i] = c;
+}
+
 int		valid_spec(t_data *d)
 {
 	char	*str;
@@ -157,7 +166,7 @@ int		digit_count_u(uintmax_t n, int base)
 	return (i);
 }
 
-char	*ft_itoa_base_u(uintmax_t n, int base)
+char	*ft_utoa_base(uintmax_t n, int base)
 {
 	char	*str;
 	int		count;
