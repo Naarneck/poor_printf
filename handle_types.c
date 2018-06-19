@@ -43,6 +43,12 @@ void	handle_int(t_data *d)
 	else
 		d->arg_string = ft_itoa_base(va_arg(d->args, int), 10);
 	zero_crutch(d, 0);
+	handle_precision_int(d);
+	handle_plus(d);
+	handle_hash(d);
+	handle_space(d);
+	handle_width(d);
+	print_string(d->arg_string, d);
 }
 
 void	handle_xou(t_data *d)
@@ -88,6 +94,10 @@ void	handle_p(t_data *d)
 	}
 	d->info.flags[HASH] = 1;
 	d->info.type = 'x';
+	handle_precision_int(d);
+	handle_hash(d);
+	handle_width(d);
+	print_string(d->arg_string, d);
 }
 
 void	handle_precision(t_data *d)
@@ -96,7 +106,7 @@ void	handle_precision(t_data *d)
 		d->arg_string[d->info.precision] = '\0';
 }
 
-void	handle_string(t_data *d)
+int		handle_string(t_data *d)
 {
 	char *temp;
 
@@ -104,12 +114,13 @@ void	handle_string(t_data *d)
 	if (temp == NULL)
 	{
 		print_string("(null)", d);
-		return ;
+		return (0);
 	}
 	d->arg_string = ft_strdup(temp);
 	handle_precision(d);
 	handle_width(d);
 	print_string(d->arg_string, d);
+	return (1);
 }
 
 void	handle_percent(t_data *d)
@@ -119,7 +130,7 @@ void	handle_percent(t_data *d)
 	print_string(d->arg_string, d);
 }
 
-void	handle_char(t_data *d)
+int		handle_char(t_data *d)
 {
 	char	temp;
 	int		i;
@@ -128,7 +139,7 @@ void	handle_char(t_data *d)
 	if (!d->info.flags[WIDTH])
 	{
 		print_char(temp, d);
-		return ;
+		return (0);
 	}
 	i = 0;
 	if (!d->info.flags[MINUS])
@@ -143,4 +154,5 @@ void	handle_char(t_data *d)
 		while (i++ < d->info.width - 1)
 			print_char(' ', d);
 	}
+	return (1);
 }

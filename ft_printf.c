@@ -24,7 +24,7 @@ void	refresh_flags(t_data *d)
 	d->info.flags[d->info.percent] = 0;
 }
 
-int		indentify_width(t_data *d)
+int		identify_width(t_data *d)
 {
 	d->info.flags[WIDTH] = 1;
 	while (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '\0')
@@ -36,7 +36,7 @@ int		indentify_width(t_data *d)
 	return (1);
 }
 
-int		indentify_precision(t_data *d)
+int		identify_precision(t_data *d)
 {
 	d->info.flags[ZERO] = 0;
 	d->info.flags[PREC] = 1;
@@ -53,7 +53,7 @@ int		indentify_precision(t_data *d)
 	return (1);
 }
 
-int		indentify_flags(t_data *d)
+int		identify_flags(t_data *d)
 {
 	if (d->format[d->pos] == ' ')
 	{
@@ -80,7 +80,7 @@ int		indentify_flags(t_data *d)
 	return (1);
 }
 
-void	indentify_cast(t_data *d)
+void	identify_cast(t_data *d)
 {
 	if (d->format[d->pos] == 'l' && d->format[d->pos + 1] == 'l')
 		d->info.cast = LL;
@@ -98,52 +98,11 @@ void	indentify_cast(t_data *d)
 		d->info.flags[CAST] = 1;
 }
 
-int		indentify_type(t_data *d)
+int		identify_other_types(t_data *d)
 {
-	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
-	{
-		handle_string(d);
-		return (1);
-	}
-	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
-	{
-		handle_char(d);
-		return (1);
-	}
-	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D' 
-		|| d->format[d->pos] == 'i')
-	{
-		d->info.type = d->format[d->pos];
-		handle_int(d);
-		handle_precision_int(d);
-		handle_plus(d);
-		handle_hash(d);
-		handle_space(d);
-		handle_width(d);
-		print_string(d->arg_string, d);
-		return (1);
-	}
-	else if (d->format[d->pos] == 'p')
-	{
-		handle_p(d);
-		handle_precision_int(d);
-		handle_hash(d);
-		handle_width(d);
-		print_string(d->arg_string, d);
-		return (1);
-	}
-	else if (d->format[d->pos] == 'o' || d->format[d->pos] == 'O')
-	{
-		d->info.type = d->format[d->pos];
-		handle_xou(d);
-		handle_precision_int(d);
-		handle_hash(d);
-		handle_width(d);
-		print_string(d->arg_string, d);
-		return (1);
-	}
-	else if (d->format[d->pos] == 'x' || d->format[d->pos] == 'X' ||
-	d->format[d->pos] == 'u' || d->format[d->pos] == 'U')
+	if (d->format[d->pos] == 'x' || d->format[d->pos] == 'X' ||
+	d->format[d->pos] == 'u' || d->format[d->pos] == 'U' ||
+	d->format[d->pos] == 'o' || d->format[d->pos] == 'O')
 	{
 		d->info.type = d->format[d->pos];
 		handle_xou(d);
@@ -162,6 +121,35 @@ int		indentify_type(t_data *d)
 	return (0);
 }
 
+int		identify_type(t_data *d)
+{
+	if (d->format[d->pos] == 's' || d->format[d->pos] == 'S')
+	{
+		handle_string(d);
+		return (1);
+	}
+	else if (d->format[d->pos] == 'c' || d->format[d->pos] == 'C')
+	{
+		handle_char(d);
+		return (1);
+	}
+	else if (d->format[d->pos] == 'd' || d->format[d->pos] == 'D'
+		|| d->format[d->pos] == 'i')
+	{
+		d->info.type = d->format[d->pos];
+		handle_int(d);
+		return (1);
+	}
+	else if (d->format[d->pos] == 'p')
+	{
+		handle_p(d);
+		return (1);
+	}
+	else if (identify_other_types(d))
+		return (1);
+	return (0);
+}
+
 char	identify_format(t_data *d)
 {
 	while (d->format[d->pos] != '\0')
@@ -171,14 +159,14 @@ char	identify_format(t_data *d)
 			print_char(d->format[d->pos], d);
 			return (2);
 		}
-		indentify_flags(d);
+		identify_flags(d);
 		if (ft_isdigit(d->format[d->pos]) && d->format[d->pos] != '0')
-			indentify_width(d);
+			identify_width(d);
 		if (d->format[d->pos] == '.')
-			indentify_precision(d);
+			identify_precision(d);
 		if (!d->info.flags[CAST])
-			indentify_cast(d);
-		if (indentify_type(d))
+			identify_cast(d);
+		if (identify_type(d))
 			return (1);
 		d->pos++;
 	}

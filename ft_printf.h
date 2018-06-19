@@ -10,37 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF
-#define FT_PRINTF
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h> //del
-#include <stdlib.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-#define	NONE 0
-#define	HH 1
-#define	L 2
-#define	LL 3
-#define	J 4
-#define	Z 5
-#define	H 6
+# define NONE 0
+# define HH 1
+# define L 2
+# define LL 3
+# define J 4
+# define Z 5
+# define H 6
+# define HASH 0
+# define MINUS 1
+# define PLUS 2
+# define ZERO 3
+# define SPACE 4
+# define WIDTH 5
+# define PREC 6
+# define CAST 7
 
-#define	HASH 0
-#define	MINUS 1
-#define	PLUS 2
-#define	ZERO 3
-#define	SPACE 4
-#define	WIDTH 5
-#define	PREC 6
-#define	CAST 7
-
-#define	END 0
-
-#define TEST  printf("\n..........\ntype: %c\nwidth: %d\nprec: %d\nflags: %d %d %d %d %d %d %d %d\ncast: %d\n..........\n",d->info.type,d->info.width,d->info.precision,d->info.flags[0] ,d->info.flags[1] ,d->info.flags[2] ,d->info.flags[3], d->info.flags[4], d->info.flags[5], d->info.flags[6], d->info.flags[7],d->info.cast);
+# define END 0
 
 typedef struct	s_flags
 {
-	int 		percent;
+	int			percent;
 	int			flags[8];
 	int			width;
 	int			precision;
@@ -50,43 +47,45 @@ typedef struct	s_flags
 
 typedef struct	s_data
 {
-	va_list 	args;
+	va_list		args;
 	int			printed;
-	char 		*format;
+	char		*format;
 	int			pos;
 	t_flags		info;
-	char 		*arg_string;
-	size_t 		sym;
+	char		*arg_string;
+	size_t		sym;
 }				t_data;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strcat(char *s1, const char *s2);
-int		ft_isdigit(char c);
-int		ft_atoi(const char *str);
-int		digit_count(intmax_t value, int base);
-char	*ft_itoa_base(intmax_t value, int base);
-int		digit_count_u(uintmax_t value, int base);
-char	*ft_utoa_base(uintmax_t value, int base);
-void	print_char(int c, t_data *d);
-void	print_string(char *str, t_data *d);
-int		ft_printf(char *format, ...);
-char	*ft_strdup(const char *s1);
-char	*ft_strsub(char const *s, unsigned int start, size_t len);
-int		valid_spec(t_data * t);
-void	ft_swap(size_t i,size_t k, t_data * d);
+size_t			ft_strlen(const char *s);
+char			*ft_strcat(char *s1, const char *s2);
+int				ft_isdigit(char c);
+int				ft_atoi(const char *str);
+int				digit_count(intmax_t value, int base);
+char			*ft_itoa_base(intmax_t value, int base);
+int				digit_count_u(uintmax_t value, int base);
+char			*ft_utoa_base(uintmax_t value, int base);
+void			print_char(int c, t_data *d);
+void			print_string(char *str, t_data *d);
+int				ft_printf(char *format, ...);
+char			*ft_strdup(const char *s1);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+int				valid_spec(t_data *t);
+void			ft_swap(size_t i, size_t k, t_data *d);
 
-void	handle_int(t_data *d);
-void	handle_xou(t_data *d);
-void	handle_string(t_data *d);
-void	handle_percent(t_data *d);
-void	handle_p(t_data *d);
-void	handle_char(t_data *d);
+void			handle_int(t_data *d);
+void			handle_xou(t_data *d);
+int				handle_string(t_data *d);
+void			handle_percent(t_data *d);
+void			handle_p(t_data *d);
+int				handle_char(t_data *d);
 
-void	handle_precision_int(t_data *d);
-void	handle_hash(t_data *d);
-void	handle_plus(t_data *d);
-void	handle_space(t_data *d);
+void			handle_precision_int(t_data *d);
+void			handle_hash(t_data *d);
+void			handle_plus(t_data *d);
+void			handle_space(t_data *d);
 
-void	handle_width(t_data *d);
+void			handle_width(t_data *d);
 
+int				identify_type(t_data *d);
+int				identify_other_types(t_data *d);
 #endif

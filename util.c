@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void		ft_swap(size_t i,size_t k, t_data * d)
+void	ft_swap(size_t i, size_t k, t_data *d)
 {
 	char	c;
 
@@ -131,7 +131,6 @@ char	*ft_itoa_base(intmax_t n, int base)
 	str[count--] = '\0';
 	if (base == 10 && n < 0)
 		str[0] = '-';
-	// count--;
 	if (n >= 0)
 		while (n >= base)
 		{
