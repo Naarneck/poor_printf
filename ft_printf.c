@@ -24,6 +24,7 @@ int		identify_other_types(t_data *d)
 		handle_hash(d);
 		handle_width(d);
 		print_string(d->arg_string, d);
+		free(d->arg_string);
 		return (1);
 	}
 	else if (d->format[d->pos] == '%')

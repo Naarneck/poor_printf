@@ -82,7 +82,7 @@ void	handle_width(t_data *d)
 		return ;
 	d->i = 0;
 	d->sym = d->info.width - ft_strlen(d->arg_string);
-	temp = (char *)malloc(sizeof(char) * ft_strlen(d->arg_string) + d->sym);
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(d->arg_string) + d->sym));
 	if (!d->FLAG[MINUS])
 		while (d->i < d->sym)
 			temp[d->i++] = d->FLAG[ZERO] ? '0' : ' ';

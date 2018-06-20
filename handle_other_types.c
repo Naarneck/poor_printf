@@ -49,6 +49,7 @@ void	handle_int(t_data *d)
 	handle_space(d);
 	handle_width(d);
 	print_string(d->arg_string, d);
+	free(d->arg_string);
 }
 
 void	handle_xou(t_data *d)

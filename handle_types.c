@@ -30,6 +30,7 @@ void	handle_p(t_data *d)
 	handle_hash(d);
 	handle_width(d);
 	print_string(d->arg_string, d);
+	free(d->arg_string);
 }
 
 void	handle_precision(t_data *d)
@@ -52,6 +53,7 @@ int		handle_string(t_data *d)
 	handle_precision(d);
 	handle_width(d);
 	print_string(d->arg_string, d);
+	free(d->arg_string);
 	return (1);
 }
 
@@ -60,6 +62,7 @@ void	handle_percent(t_data *d)
 	d->arg_string = ft_strdup("%");
 	handle_width(d);
 	print_string(d->arg_string, d);
+	free(d->arg_string);
 }
 
 int		handle_char(t_data *d)
@@ -86,5 +89,6 @@ int		handle_char(t_data *d)
 		while (i++ < d->info.width - 1)
 			print_char(' ', d);
 	}
+	free(d->arg_string);
 	return (1);
 }
