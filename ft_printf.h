@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define NONE 0
@@ -24,6 +23,7 @@
 # define J 4
 # define Z 5
 # define H 6
+
 # define HASH 0
 # define MINUS 1
 # define PLUS 2
@@ -34,6 +34,7 @@
 # define CAST 7
 
 # define END 0
+# define FLAG info.flags
 
 typedef struct	s_flags
 {
@@ -54,38 +55,53 @@ typedef struct	s_data
 	t_flags		info;
 	char		*arg_string;
 	size_t		sym;
+	int			cnt;
+	size_t		i;
 }				t_data;
 
-size_t			ft_strlen(const char *s);
-char			*ft_strcat(char *s1, const char *s2);
-int				ft_isdigit(char c);
-int				ft_atoi(const char *str);
+int				ft_printf(char *format, ...);
+int				identify_type(t_data *d);
+int				identify_other_types(t_data *d);
+char			identify_format(t_data *d);
+void			parse_format(t_data *d);
+
 int				digit_count(intmax_t value, int base);
 char			*ft_itoa_base(intmax_t value, int base);
 int				digit_count_u(uintmax_t value, int base);
 char			*ft_utoa_base(uintmax_t value, int base);
+
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+char			*ft_strdup(const char *s1);
+char			*ft_strcat(char *s1, const char *s2);
 void			print_char(int c, t_data *d);
 void			print_string(char *str, t_data *d);
-int				ft_printf(char *format, ...);
-char			*ft_strdup(const char *s1);
-char			*ft_strsub(char const *s, unsigned int start, size_t len);
-int				valid_spec(t_data *t);
-void			ft_swap(size_t i, size_t k, t_data *d);
 
-void			handle_int(t_data *d);
-void			handle_xou(t_data *d);
+void			insert_prefix(const char *pref, t_data *d);
+void			ft_swap(size_t i, size_t k, t_data *d);
+int				valid_spec(t_data *t);
+int				ft_isdigit(char c, int letters);
+size_t			ft_strlen(const char *s);
+
+void			refresh_flags(t_data *d);
+int				identify_width(t_data *d);
+int				identify_precision(t_data *d);
+int				identify_flags(t_data *d);
+void			identify_cast(t_data *d);
+
+void			handle_p(t_data *d);
+void			handle_precision(t_data *d);
 int				handle_string(t_data *d);
 void			handle_percent(t_data *d);
-void			handle_p(t_data *d);
 int				handle_char(t_data *d);
 
-void			handle_precision_int(t_data *d);
-void			handle_hash(t_data *d);
-void			handle_plus(t_data *d);
-void			handle_space(t_data *d);
+void			zero_crutch(t_data *d, int a);
+void			handle_int(t_data *d);
+void			handle_xou(t_data *d);
 
+void			handle_precision_int(t_data *d);
+void			handle_space(t_data *d);
+void			handle_plus(t_data *d);
+void			handle_hash(t_data *d);
 void			handle_width(t_data *d);
 
-int				identify_type(t_data *d);
-int				identify_other_types(t_data *d);
 #endif

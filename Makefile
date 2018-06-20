@@ -12,8 +12,8 @@
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c 	handle_types.c handle_width.c util.c
-OBJS = ft_printf.o 	handle_types.o handle_width.o util.o
+SRCS = ft_printf.c 	handle_types.c handle_width.c util.c handle_other_types.c util1.c util2.c identify_stuff.c
+OBJS = ft_printf.o 	handle_types.o handle_width.o util.o handle_other_types.o util1.o util2.o identify_stuff.o
 HEADER = ft_printf.h
 
 JUNK = $(wildcard .DS_Store */.DS_Store */*/.DS_Store *.gch)
