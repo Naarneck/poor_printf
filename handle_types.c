@@ -89,6 +89,5 @@ int		handle_char(t_data *d)
 		while (i++ < d->info.width - 1)
 			print_char(' ', d);
 	}
-	free(d->arg_string);
 	return (1);
 }
